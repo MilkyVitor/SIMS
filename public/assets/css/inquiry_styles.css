@@ -15,7 +15,8 @@
     font-family: 'Poppins';                            
 }
 
-.nav-link, h1, .home-p, button, .ann-h2, .ann-p, .prog-h4, .about-h3, .about-p, .mission-p, .mission-h3 {
+.nav-link, h1, .home-p, button, .ann-h2, .ann-p, .prog-h4,
+ .about-h3, .about-p, .mission-p, .mission-h3, .navbar-user-dropdown {
     color: white;
 }
 
@@ -25,7 +26,7 @@
 
 .nav-title, .nav-span ,  h1, .home-p, .ann-h2, 
 .ann-p, .prog-h4, .about-h3, .about-p, .mission-p,
- .mission-h3, .about-logo   {
+ .mission-h3, .about-logo, .navbar-user-dropdown   {
     text-shadow: 1px 3px black;
 }
 
@@ -42,3 +43,18 @@
 }
 
 
+.menu {
+    max-width: 25%; /* Set your desired maximum width */
+    width: auto; /* You can adjust this based on your needs */
+}
+
+.announcements {
+    max-height: 75%;
+}
+
+
+@media (max-width: 768px) {
+    .menu {
+        max-width: 80%; /* Full width for small screens */
+    }
+}

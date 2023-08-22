@@ -14,7 +14,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
               
                 <li class="nav-item d-flex justify-content-center">
-                    <button class="btn btn-flat nav-link text-white" data-bs-toggle="modal" data-bs-target="#loginModal"> <span class="nav-span"><i class="mdi mdi-account"></i>Sign In</span></button></a>
+                    <button class="btn btn-flat nav-link text-white" data-bs-toggle="modal" data-bs-target="#loginModal"> <span class="nav-span"><i class="mdi mdi-account-group"></i> Faculty Sign In</span></button></a>
                 </li> 
                    
             </ul>

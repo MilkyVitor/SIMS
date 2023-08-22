@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RegistrarController;
 use App\Http\Middleware\AdminMiddleware;
 
 /*
@@ -20,10 +21,19 @@ Route::get('/', [InquiryController::class, 'showInquiry'])->name('login');
 Route::post('/processlogin', [InquiryController::class, 'checkUser']);
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/Administrator', [AdminController::class, 'home'])->name('Administrator');
+    // Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
+    
 
 });
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/Registrar', [RegistrarController::class, 'home'])->name('Registrar');
+});
+
+ Route::post('/general-announcements', [InquiryController::class, 'showGeneralAnnouncements']);
+Route::post('/general-prog-offered', [InquiryController::class, 'showProgramsOffered']); 
+
 
 
