@@ -11,7 +11,7 @@
                     @foreach ($data as $anrow)
                         <div class="item">
                             {{-- <div class="card border-0 shadow"> --}}
-                                <img src="{{asset('assets/img/'. $anrow->Image)}}" alt="" class="card-img-top img-fluid img-responsive">
+                                <img src="{{asset('storage/images/'. $anrow->Image)}}" alt="" class="card-img-top img-fluid img-responsive">
                                 <div class="card-body">
                                     <div class="card-title text-center">
                                         <h2 class="ann-h2">{{$anrow->Headline}}</h2>

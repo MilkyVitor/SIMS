@@ -13,9 +13,9 @@ class InquiryController extends Controller
     //
     public function showInquiry(){
         $title = 'School Information Management';
-        $banner = DB::table('inq_banner')->where('isActive', 1)->get();
+        $home = DB::table('inq_home')->where('isActive', 1)->first();
         $announcement = DB::table('inq_announcement')->where('isActive', 1)->get();
-        return view('inquiry', ['title' => $title],['banner' => $banner, 'announcement' => $announcement]);
+        return view('inquiry', ['title' => $title],[ 'announcement' => $announcement, 'home' => $home]);
     }
 
     public function checkUser(Request $request) {

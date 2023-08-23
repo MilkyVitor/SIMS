@@ -32,15 +32,15 @@
                     <div class="row pt-3">
                         <div class="col-md-6">
                             <div class="card-body m-5 ">
-                                <h1 class="display-1">Welcome Students!</h1>
-                                <p class="home-p">Good day! Quality education awaits as you sign in and utilize our system, giving you the tools you need in this school year!</p>
+                                <h1 class="display-1">{{$home->title}}</h1>
+                                <p class="home-p">{{$home->sub_title}}</p>
                                 <button class="btn btn-outline-primary"><i class="mdi mdi-account-circle"></i> Sign in as Student!</button>
                             </div>
                             
                     </div>
                     <div class="col-md-6">
                             <div class="card-body m-5">
-                                <img src="{{asset('assets/img/kids-saying-hi.png')}}" alt="kids-saying-hi" class="img-responsive img-fluid d-flex justify-content-center" >
+                                <img src="{{asset('storage/images/'.$home->image_url)}}" alt="kids-saying-hi" class="img-responsive img-fluid d-flex justify-content-center" >
                             </div>
                     </div>
                     </div>

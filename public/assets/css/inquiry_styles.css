@@ -16,7 +16,7 @@
 }
 
 .nav-link, h1, .home-p, button, .ann-h2, .ann-p, .prog-h4,
- .about-h3, .about-p, .mission-p, .mission-h3, .navbar-user-dropdown {
+ .about-h3, .about-p, .mission-p, .mission-h3, .navbar-user-dropdown, .white-line {
     color: white;
 }
 
@@ -24,7 +24,7 @@
     color: red;
 }
 
-.nav-title, .nav-span ,  h1, .home-p, .ann-h2, 
+.nav-title, .nav-span , .home-p, .ann-h2, 
 .ann-p, .prog-h4, .about-h3, .about-p, .mission-p,
  .mission-h3, .about-logo, .navbar-user-dropdown   {
     text-shadow: 1px 3px black;

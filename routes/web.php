@@ -22,7 +22,14 @@ Route::post('/processlogin', [InquiryController::class, 'checkUser']);
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/Administrator', [AdminController::class, 'home'])->name('Administrator');
-    // Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/update-master-page', [AdminController::class, 'updateMasterPage'])->name('update-master-page');
+    Route::post('/home-data', [AdminController::class, 'getHomeData']);
+
+    Route::post('/updateHomeTab', [AdminController::class, 'updateHomeTab']);
+    Route::post('/addAnnouncement', [AdminController::class, 'addAnnouncement']);
+    Route::post('/editAnnouncement', [AdminController::class, 'editAnnouncement']);
+    Route::post('/deleteAnnouncement', [AdminController::class, 'deleteAnnouncement']);
+    Route::post('/announcement-data', [AdminController::class, 'getAnnouncementData']);
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
     
 
