@@ -143,3 +143,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editAbout" tabindex="-1" aria-expanded="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title fs-5">Edit About</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                    <form action="/editAbout" method="POST">
+                        @csrf
+                    <div class="form-group col-md-12">
+                        <input type="hidden" class="aboutID" name="aboutID">
+                        <label for="">About</label>
+                        <textarea name="about" id="about" class="form-control" cols="5" rows="5" placeholder="Edit About..." required></textarea>
+                        <label for="">Mission</label>
+                        <textarea name="mission" id="mission" class="form-control" cols="5" rows="5" placeholder="Edit Mission..." required></textarea>
+                        <label for="">Vision</label>
+                        <textarea name="vision" id="vision" class="form-control" cols="5" rows="5" placeholder="Edit Vision..." required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success btn-flat" type="submit"><i class="mdi mdi-send"></i> Submit</button>
+            </div>
+
+                    </form>
+
+
+        </div>
+    </div>
+</div>

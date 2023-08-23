@@ -58,3 +58,7 @@
         max-width: 80%; /* Full width for small screens */
     }
 }
+
+label {
+    font-weight: bold;
+}

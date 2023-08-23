@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/editAnnouncement', [AdminController::class, 'editAnnouncement']);
     Route::post('/deleteAnnouncement', [AdminController::class, 'deleteAnnouncement']);
     Route::post('/announcement-data', [AdminController::class, 'getAnnouncementData']);
+    Route::post('/about-data', [AdminController::class, 'getAboutData']);
+    Route::post('/editAbout', [AdminController::class, 'editAbout']);
+
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
     
 
@@ -37,6 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/Registrar', [RegistrarController::class, 'home'])->name('Registrar');
+    Route::get('/student-registration', [RegistrarController::class, 'showStudentRegistration']);
+    Route::post('/send-registration', [RegistrarController::class, 'sendRegistration']);
 });
 
  Route::post('/general-announcements', [InquiryController::class, 'showGeneralAnnouncements']);

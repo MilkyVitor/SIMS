@@ -32,10 +32,11 @@ class AdminController extends Controller
     public function updateMasterPage(){
         $title = "SIMS Administrator";
         $school = "School Information Management System";
-        $home = DB::table('inq_home')->where('isActive', 1)->get();
-        $announcements = DB::table('inq_announcement')->where('isActive', 1)->get();
+        $home = Home::where('isActive', 1)->get();
+        $announcements = Announcements::where('isActive', 1)->get();
+        $about = DB::table('inq_about')->get();
 
-        $constants = ['title' => $title, 'user' => 'Admin', 'school' => $school, 'home' => $home, 'announcements' => $announcements];
+        $constants = ['title' => $title, 'user' => 'Admin', 'school' => $school, 'home' => $home, 'announcements' => $announcements, 'about' => $about];
 
         return view('Administrator.ump', $constants);
     }
@@ -146,6 +147,28 @@ class AdminController extends Controller
         if($delete){
             return redirect('/update-master-page')->with('success', 'Announcement removed from '. $request->postedAt); 
         }
+    }
+
+    public function getAboutData(Request $request) {
+        $data = DB::table('inq_about')->where('ID', $request['id'])->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function editAbout(Request $request) {
+        $validated = $request->validate([
+            'about' => 'required',
+            'mission' => 'required',
+            'vision' => 'required',
+        ]);
+
+            $updateabout = DB::table('inq_about')->where('ID', $request->aboutID)
+            ->update(['About' => $validated['about'], 'Mission' => $validated['mission'], 'Vision' => $validated['vision']]);
+
+            if($updateabout) {
+                return redirect('/update-master-page')->with('success', 'About information updated!');
+            }
+        
+        
     }
     
 

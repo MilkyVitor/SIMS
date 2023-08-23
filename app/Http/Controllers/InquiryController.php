@@ -6,16 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Announcements;
+use App\Models\Home;
 
 class InquiryController extends Controller
 {
     //
     public function showInquiry(){
         $title = 'School Information Management';
-        $home = DB::table('inq_home')->where('isActive', 1)->first();
-        $announcement = DB::table('inq_announcement')->where('isActive', 1)->get();
-        return view('inquiry', ['title' => $title],[ 'announcement' => $announcement, 'home' => $home]);
+        $home = Home::where('isActive', 1)->first();
+        $announcement = Announcements::where('isActive', 1)->get();
+        $about = DB::table('inq_about')->first();
+        return view('inquiry', ['title' => $title],[ 'announcement' => $announcement, 'home' => $home, 'about' => $about]);
     }
 
     public function checkUser(Request $request) {

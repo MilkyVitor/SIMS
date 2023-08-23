@@ -8,7 +8,7 @@
         <div class="col-md-12 grid-margin stretch-card m-3">
 
             {{-- THE TABS --}}
-            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <ul class="nav nav-tabs " id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
                 </li>
@@ -124,7 +124,7 @@
                                         <img src="{{asset('assets/img/Logo.png')}}" alt="School Logo" class="img-fluid img-responsive m-3 about-logo" height="100vm" width="100vm">
                                         <h3 class="display-3 text-center about-h3 ">About us</h3>    
                                     </div>
-                                    <p class="text-center about-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur, hic! Ipsam laborum at minus quibusdam ducimus dolores ullam inventore culpa natus impedit accusamus, qui numquam sed quam dignissimos distinctio quos! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus illo eveniet quod architecto illum doloribus recusandae, excepturi tempore expedita veritatis asperiores pariatur odit numquam, assumenda nulla reiciendis. Officiis, sed sequi.</p>
+                                    <p class="text-center about-p">{{$about->About}} </p>
                                 </div>
                             </div>
                         </div>
@@ -133,14 +133,14 @@
                             <div class="col-md-12 mt-5">
                                 <div class="card-body">
                                     <h3 class="card-title mission-h3">Mission</h3>
-                                    <p class="mission-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, aut at cumque iste iusto reiciendis sed quibusdam deleniti consequatur corrupti, vel iure enim atque quasi! Dolore provident in molestiae quo?</p>
+                                    <p class="mission-p">{{$about->Mission}} </p>
                                 </div>
                             </div>
 
                             <div class="col-md-12 mt-5">
                                 <div class="card-body">
                                     <h3 class="card-title mission-h3">Vision</h3>
-                                    <p class="mission-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, aut at cumque iste iusto reiciendis sed quibusdam deleniti consequatur corrupti, vel iure enim atque quasi! Dolore provident in molestiae quo?</p>
+                                    <p class="mission-p">{{$about->Vision}} </p>
                                 </div>
                             </div>
                         </div>

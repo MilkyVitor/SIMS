@@ -10,7 +10,7 @@
     <div class="offcanvas-body ">
         <div class="list-group list-group-flush">
             <a href="/Registrar" class="list-group-item list-group-item-action active" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
-            <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 1</a>
+            <a href="/student-registration" class="list-group-item list-group-item-action"><i class="mdi mdi-account-multiple-plus"></i> Students Registration</a>
             <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 2</a>
             <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 3</a>
           </div>
