@@ -25,19 +25,15 @@ class InquiryController extends Controller
 
         if(auth()->attempt($validation)){
             $user = auth()->user();
-
             if($user->account_type == 'Administrator'){
-                // $title = "SIMS Admin";
-                // $type = "Admin";
                 return redirect()->route('Administrator');
-
-                // return redirect()->route('Administrator')->with(['account' => $user->account_type]);
             } else if($user->account_type == 'Registrar'){
                 return redirect()->route('Registrar');
+            }else if($user->account_type == 'Cashier'){
+                return redirect()->route('Cashier');
             } else {
                 return redirect('/');
             }
-
         } else {
             return redirect('/')->with('error', 'Credentials are wrong!');
         }

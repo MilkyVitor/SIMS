@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use App\Models\StudentInfo;
 
 class RegistrarController extends Controller
 {
@@ -19,16 +22,66 @@ class RegistrarController extends Controller
         $school = "School Information Management System";
         $user = 'Registrar';
 
-        return view('Registrar.sr', ['title' => $title, 'user' => $user, 'school' => $school]);
+        $srdata = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'No')->get();
+
+        return view('Registrar.sr', ['title' => $title, 'user' => $user, 'school' => $school, 'srdata' => $srdata]);
     }
 
     public function sendRegistration(Request $request){
         $validated = $request->validate([
             'firstname' => 'required',
             'middlename' => 'required',
-            'lastname' => 'required'
+            'lastname' => 'required',
+            'gender' => 'required',
+             'datebirth' => 'required',
+            'placebirth' => 'required',
+             'contactnumber' => 'required',
+            'emailaddress' => 'required',
+             'homeaddress' => 'required',
+            'guardianName' => 'required',
+            'guardianrelation' => 'required',
+             'guardiancontact' => 'required',
+             'guardianaddress' => 'required',
+             'gradelevel' => 'required',
+             'studentType' => 'required'
         ]);
 
-        echo $validated['firstname']." ".$validated['middlename']." ".$validated['lastname'];
+        $register = new StudentInfo;
+        $register->user_id = strtoupper(Str::random(6));
+        $register->first_name = $validated['firstname'];
+        $register->middle_name = $validated['middlename'];
+        $register->last_name = $validated['lastname'];
+        $register->suffix = $request->suffix;
+        $register->gender = $validated['gender'];
+        $register->date_birth = $validated['datebirth'];
+        $register->place_birth = $validated['placebirth'];
+        $register->contact_number = $validated['contactnumber'];
+        $register->email_address = $validated['emailaddress'];
+        $register->student_address = $validated['homeaddress'];
+        $register->guardian_name = $validated['guardianName'];
+        $register->guardian_relation = $validated['guardianrelation'];
+        $register->guardian_contact = $validated['guardiancontact'];
+        $register->guardian_address = $validated['guardianaddress'];
+        $register->grade_level = $validated['gradelevel'];
+        $register->student_type = $validated['studentType'];
+        $register->isPaid = "No";
+        $register->isEnrolled = "No";
+        $register->isRegistered = "Yes";
+
+        if($register->save()){
+            return redirect('/student-registration')->with('success', 'Successfully registered a student. Proceed to cashier!');
+        } else {
+            return "error";
+        }
+
+        
+  
     }
+
+    public function detailsRegistration($id){
+        $data = StudentInfo::where('ID', $id)->first();
+
+        return response()->json(['data' => $data]);
+    }
+
 }

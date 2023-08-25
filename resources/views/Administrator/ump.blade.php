@@ -8,7 +8,7 @@
         <h1 class="text-center">Update Master Page</h1>
         <hr class="white-line">
         
-        @if(session('success'))
+                 @if(session('success'))
                         <script>
                             Swal.fire({
                                 title:'Success!',
