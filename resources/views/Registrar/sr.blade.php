@@ -12,6 +12,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-sr-tab" data-bs-toggle="tab" data-bs-target="#nav-sr" type="button" role="tab" aria-controls="nav-sr" aria-selected="true">Registration </button>
                 <button class="nav-link" id="nav-vsr-tab" data-bs-toggle="tab" data-bs-target="#nav-vsr" type="button" role="tab" aria-controls="nav-vsr" aria-selected="true">View Pending Registration </button>
+                <button class="nav-link" id="nav-fe-tab" data-bs-toggle="tab" data-bs-target="#nav-fe" type="button" role="tab" aria-controls="nav-fe" aria-selected="true">For Enrollment </button>
             </div>
         </nav>
 
@@ -156,7 +157,7 @@
         </div>
 
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-vsr" role="tabpanel" aria-labelledby="nav-vsr-tab" tabindex="0">
+            <div class="tab-pane fade show" id="nav-vsr" role="tabpanel" aria-labelledby="nav-vsr-tab" tabindex="0">
 
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card m-1 overflow-y-auto">
@@ -193,6 +194,45 @@
                     </div>
                 </div>
 
+
+            </div>
+        </div>
+
+        <div class="tab-content" id="nav-tabContent">
+            <div div class="tab-pane fade show" id="nav-fe" role="tabpanel" aria-labelledby="nav-fe-tab" tabindex="0"> 
+
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card m-1 overflow-y-auto">
+                        
+                        <div class="card-body">
+                            <table class="table table-striped data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Student Name</th>
+                                        <th>Date Registered</th>
+                                        <th>Tools</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    @foreach ($enrollee as $enrow)
+                                        <tr>
+                                            <td>{{$enrow->ID}}</td>
+                                            <td>{{$enrow->first_name." ".$enrow->last_name}}</td>
+                                            <td>{{$enrow->created_at->format('F d, Y')}}</td>
+                                            <td>
+                                                <button class="btn btn-flat btn-sm btn-outline-success accept" data-bs-id="{{$enrow->ID}}" data-bs-toggle="modal" data-bs-target="#evaluateEnrollee"><i class="mdi mdi-check"></i> Evaluate</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+    
+                            </table>
+                        </div>
+
+                    </div>
+                </div> 
 
             </div>
         </div>
@@ -247,6 +287,12 @@
             var details = $(this).data('bs-id');
             getData(details);
         });
+
+        $('.accept').click(function(e){
+            e.preventDefault();
+            var ac = $(this).data('bs-id');
+            getData(ac);
+        });
     });
 
     function getData(id){
@@ -254,6 +300,7 @@
             method: "GET",
             url: '/details-registration/'+id,
             success: function(response){
+                $('.studID').val(response.data.ID);
                 $('#DFirstName').val(response.data.first_name);
                 $('#DMiddleName').val(response.data.middle_name);
                 $('#DLastName').val(response.data.last_name);

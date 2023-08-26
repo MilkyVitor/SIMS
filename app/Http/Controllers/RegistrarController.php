@@ -23,8 +23,9 @@ class RegistrarController extends Controller
         $user = 'Registrar';
 
         $srdata = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'No')->get();
+        $enrollee = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'Yes')->where('isEnrolled', 'No')->get();
 
-        return view('Registrar.sr', ['title' => $title, 'user' => $user, 'school' => $school, 'srdata' => $srdata]);
+        return view('Registrar.sr', ['title' => $title, 'user' => $user, 'school' => $school, 'srdata' => $srdata, 'enrollee' => $enrollee]);
     }
 
     public function sendRegistration(Request $request){
@@ -82,6 +83,14 @@ class RegistrarController extends Controller
         $data = StudentInfo::where('ID', $id)->first();
 
         return response()->json(['data' => $data]);
+    }
+
+    public function acceptEnrollee(Request $request) {
+        $accept = StudentInfo::where('ID', $request->studID)->update(['isEnrolled' => 'Yes']);
+
+        if($accept) {
+            return redirect('/student-registration')->with('success', 'Student has been Enrolled!');
+        }
     }
 
 }

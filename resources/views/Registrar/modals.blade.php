@@ -189,3 +189,40 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="evaluateEnrollee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Evaluate Student</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                    <form action="/accept-enrollee" method="POST">
+                    @csrf
+                    <div class="form-group col-md-12 p-2">
+                        <input type="hidden" class="studID" name="studID">
+                        <h1 class="card-title fs-2 text-center">Pending Documents</h1>
+                        <input type="checkbox"  name="documents[]" value="Birth_Certificate"> Birth Certificate <br>
+                        <input type="checkbox"  name="documents[]" value="Report_Card"> Previous Report Card <br>
+                        <input type="checkbox"  name="documents[]" value="Picture"> 1x1 Picture <br>
+                    </div>
+
+                    {{-- <div class="form-group col-md-12">
+                        <input type="checkbox" required><em>CONFIRM THE ENROLLEE</em>
+                    </div> --}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-flat btn-success">Enroll the Student</button>
+            </div>
+        </form>
+
+
+        </div>
+    </div>
+</div>

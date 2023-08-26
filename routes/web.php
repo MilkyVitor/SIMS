@@ -46,6 +46,7 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::get('/student-registration', [RegistrarController::class, 'showStudentRegistration']);
     Route::post('/send-registration', [RegistrarController::class, 'sendRegistration']);
     Route::get('/details-registration/{id}', [RegistrarController::class, 'detailsRegistration']);
+    Route::post('/accept-enrollee', [RegistrarController::class,'acceptEnrollee']);
 });
 
 
