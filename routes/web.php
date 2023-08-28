@@ -5,6 +5,7 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\StudentController;
 
 
 /*
@@ -47,6 +48,10 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::post('/send-registration', [RegistrarController::class, 'sendRegistration']);
     Route::get('/details-registration/{id}', [RegistrarController::class, 'detailsRegistration']);
     Route::post('/accept-enrollee', [RegistrarController::class,'acceptEnrollee']);
+    Route::get('/announcement', [RegistrarController::class, 'showAnnouncements']);
+    Route::get('/getDataAnn/{id}', [RegistrarController::class, 'getAnnouncementData']);
+    Route::post('/update-announcement', [RegistrarController::class, 'updateAnnouncement']);
+    Route::post('/remove-announcement', [RegistrarController::class, 'removeAnnouncement']);
 });
 
 
@@ -56,6 +61,10 @@ Route::middleware(['auth', 'CashierOnly'])->group(function () {
     Route::get('/getPRDetails/{id}', [CashierController::class, 'getDetails']);
     Route::post('/mark-paid', [CashierController::class, 'markPaid']);
     
+});
+
+Route::middleware(['auth', 'StudentOnly'])->group(function () {
+    Route::get('/Student', [StudentController::class, 'home'])->name('Student');
 });
 
 

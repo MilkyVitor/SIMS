@@ -6,15 +6,29 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use App\Models\StudentInfo;
+use App\Models\User;
+use App\Models\Announcements;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrarController extends Controller
 {
+    private $title;
+    private $school;
+    private $user;
+
+    public function __construct(){
+        $this->title = "SIMS Registrar";
+        $this->school = "School Information Management System";
+        $this->user = 'Registrar';
+        $this->constants = ['title' => $this->title, 'user' => $this->user, 'school' => $this->school];
+    }
+
     public function home() {
         $title = "SIMS Registrar";
         $school = "School Information Management System";
         $user = 'Registrar';
 
-        return view('Registrar.home', ['title' => $title, 'user' => $user, 'school' => $school]);
+        return view('Registrar.home', $this->constants);
     }
 
     public function showStudentRegistration(){
@@ -25,7 +39,7 @@ class RegistrarController extends Controller
         $srdata = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'No')->get();
         $enrollee = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'Yes')->where('isEnrolled', 'No')->get();
 
-        return view('Registrar.sr', ['title' => $title, 'user' => $user, 'school' => $school, 'srdata' => $srdata, 'enrollee' => $enrollee]);
+        return view('Registrar.sr',  $this->constants,['srdata' => $srdata, 'enrollee' => $enrollee]);
     }
 
     public function sendRegistration(Request $request){
@@ -88,8 +102,55 @@ class RegistrarController extends Controller
     public function acceptEnrollee(Request $request) {
         $accept = StudentInfo::where('ID', $request->studID)->update(['isEnrolled' => 'Yes']);
 
+        $createuser = new User;
+        $createuser->name = $request->name;
+        $createuser->email = $request->emailaddress;
+        $createuser->password = Hash::make($request->name);
+        $createuser->account_type = "Student";
+        $createuser->unique_id = $request->userID;
+
         if($accept) {
-            return redirect('/student-registration')->with('success', 'Student has been Enrolled!');
+            if($createuser->save()){
+                return redirect('/student-registration')->with('success', 'Student has been Enrolled!');
+            }
+        }
+    }
+
+    public function showAnnouncements() {
+        $announcements = Announcements::where('isActive', 1)->get();
+        return view('Registrar.ann', $this->constants, ['announcements' => $announcements]);
+    }
+
+    public function getAnnouncementData($id){
+        $data = Announcements::where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function updateAnnouncement(Request $request) {
+
+        if($request->hasFile('image')){
+            $imagename = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/images', $imagename);
+        } else if(!$request->hasFile('image')) {
+            $imagename = "Logo.png";
+        }
+
+         $update = Announcements::where('ID', $request->annID)->update([
+            'Headline' => $request->headline, 
+            'Description' => $request->description,
+            'PostedAt' => $request->postedAt,
+            'Image' => $imagename
+         ]);
+
+         if($update) {
+            return redirect('/announcement')->with('success', 'You have updated the announcement!');
+         }
+    }
+
+    public function removeAnnouncement(Request $request) {
+        $delete = Announcements::where('ID', $request->annID)->update(['isActive' => 0]);
+        if($delete){
+            return redirect('/announcement')->with('success', 'You have remove the announcement!');
         }
     }
 

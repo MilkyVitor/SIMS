@@ -31,6 +31,8 @@ class InquiryController extends Controller
                 return redirect()->route('Registrar');
             }else if($user->account_type == 'Cashier'){
                 return redirect()->route('Cashier');
+            }else if($user->account_type == 'Student'){
+                return redirect()->route('Student');
             } else {
                 return redirect('/');
             }

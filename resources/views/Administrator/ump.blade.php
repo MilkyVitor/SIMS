@@ -63,7 +63,7 @@
                                                     <img src="{{asset('storage/images/'.$homerow->image_url)}}" class="img-fluid img-responsive">
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-outline-success btn-flat home" data-bs-id=" 1 " data-bs-toggle="modal" data-bs-target="#homeUpdateModal"><i class="mdi mdi-pencil"></i> Update</button>
+                                                    <button class="btn btn-outline-success btn-flat home" data-bs-id="{{$homerow->ID}} " data-bs-toggle="modal" data-bs-target="#homeUpdateModal"><i class="mdi mdi-pencil"></i> Update</button>
                                                 </td>
                                             </tr>
                                         @endforeach

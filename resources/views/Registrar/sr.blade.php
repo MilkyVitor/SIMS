@@ -13,6 +13,7 @@
                 <button class="nav-link active" id="nav-sr-tab" data-bs-toggle="tab" data-bs-target="#nav-sr" type="button" role="tab" aria-controls="nav-sr" aria-selected="true">Registration </button>
                 <button class="nav-link" id="nav-vsr-tab" data-bs-toggle="tab" data-bs-target="#nav-vsr" type="button" role="tab" aria-controls="nav-vsr" aria-selected="true">View Pending Registration </button>
                 <button class="nav-link" id="nav-fe-tab" data-bs-toggle="tab" data-bs-target="#nav-fe" type="button" role="tab" aria-controls="nav-fe" aria-selected="true">For Enrollment </button>
+                <button class="nav-link" id="nav-es-tab" data-bs-toggle="tab" data-bs-target="#nav-es" type="button" role="tab" aria-controls="nav-es" aria-selected="true">Students </button>
             </div>
         </nav>
 
@@ -199,7 +200,7 @@
         </div>
 
         <div class="tab-content" id="nav-tabContent">
-            <div div class="tab-pane fade show" id="nav-fe" role="tabpanel" aria-labelledby="nav-fe-tab" tabindex="0"> 
+            <div class="tab-pane fade show" id="nav-fe" role="tabpanel" aria-labelledby="nav-fe-tab" tabindex="0"> 
 
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card m-1 overflow-y-auto">
@@ -233,6 +234,42 @@
 
                     </div>
                 </div> 
+
+            </div>
+        </div>
+
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show" id="nav-es" role="tabpanel" aria-labelledby="nav-es-tab" tabindex="0">
+
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card m-1 overflow-y-auto">
+
+                        <div class="card-body">
+                            <table class="table table-striped data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Grade and Section</th>
+                                        <th>Date Enrolled</th>
+                                        <th>Tools</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>    
+                </div>
 
             </div>
         </div>
@@ -301,6 +338,9 @@
             url: '/details-registration/'+id,
             success: function(response){
                 $('.studID').val(response.data.ID);
+                $('#senduserID').val(response.data.user_id);
+                $('#sendName').val(response.data.first_name+response.data.last_name);
+                $('#sendEmailAddress').val(response.data.email_address);
                 $('#DFirstName').val(response.data.first_name);
                 $('#DMiddleName').val(response.data.middle_name);
                 $('#DLastName').val(response.data.last_name);

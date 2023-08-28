@@ -205,6 +205,10 @@
                     @csrf
                     <div class="form-group col-md-12 p-2">
                         <input type="hidden" class="studID" name="studID">
+                        <input type="hidden" id="senduserID" name="userID">
+                        <input type="hidden" id="sendName" name="name">
+                        <input type="hidden" id="sendEmailAddress" name="emailaddress">
+                        
                         <h1 class="card-title fs-2 text-center">Pending Documents</h1>
                         <input type="checkbox"  name="documents[]" value="Birth_Certificate"> Birth Certificate <br>
                         <input type="checkbox"  name="documents[]" value="Report_Card"> Previous Report Card <br>
@@ -222,6 +226,118 @@
             </div>
         </form>
 
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewAnnouncement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                    <h3 class="card-title fs-4 text-center" id="Headline"></h3>
+                    <img id="Image" class="img-fluid img-responsive">
+                    <p id="Description" class="text-center"></p>
+                    <h6 class=" fw-3">By: <span id="Author"></span></h6>
+                    <h6 class=" fw-3">Date Posted: <span id="CreatedAt"></span></h6>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-flat btn-primary annID view" data-bs-toggle="modal" data-bs-target="#editAnnouncement"><i class="mdi mdi-pencil"></i> Edit</button>
+                <button class="btn btn-lg btn-flat btn-danger annID view" data-bs-toggle="modal" data-bs-target="#removeAnnouncement"><i class="mdi mdi-delete"></i> Remove</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editAnnouncement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Announcement</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                        <form action="/update-announcement" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" class="annID" name="annID">
+                    <div class="row">
+
+                        <div class="form-group col-md-12">
+                            <label for="">Headline</label>
+                            <input type="text" class="form-control" name="headline" id="EHeadline" placeholder="Enter Headline..." required >
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Description</label>
+                            <textarea name="description" id="EDescription" class="form-control" placeholder="Enter Description..." cols="5" rows="5"></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Posted At</label>
+                            <select name="postedAt" id="EPostedAt" class="form-control">
+                                <option value="General">General</option>
+                                <option value="Faculty">Faculty</option>
+                                <option value="Students">Students</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Author</label>
+                            <input type="text" name="author" id="EAuthor" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Change Image</label>
+                            <input type="file" name="image" accept=".png, .jpg, .gif" class="form-control" >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-flat btn-success  annID"><i class="mdi mdi-pencil"></i> Submit</button>
+            </div>
+        </form>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeAnnouncement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Remove Announcement</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/remove-announcement" method="POST">
+                    @csrf
+                <div class="card-body text-center">
+                    <input type="hidden" class="annID" name="annID">
+                    <p>Are you sure to remove announcement?</p>
+                    <h3 id="Delete"></h3>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-danger btn-flat"><i class="mdi mdi-delete"></i> Remove</button>
+            </div>
+        </form>
 
         </div>
     </div>

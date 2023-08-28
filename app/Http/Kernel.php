@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'AdminRestrict' => \App\Http\Middleware\AdminRestrict::class,
         'RegistrarRestrict' => \App\Http\Middleware\RegistrarRestrict::class,
         'CashierOnly' => \App\Http\Middleware\CashierOnly::class,
+        'StudentOnly' => \App\Http\Middleware\StudentOnly::class,
 
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
