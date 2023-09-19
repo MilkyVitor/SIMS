@@ -179,3 +179,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addAccounts" tabindex="-1" aria-expanded="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Add Account</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/addAccount" method="POST">
+                    @csrf
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>Type</label>
+                            <select name="type" class="form-control">
+                                <option disabled selected>-Select-</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Registrar">Registrar</option>
+                                <option value="Cashier">Cashier</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Confirm Email Address</label>
+                            <input type="email" class="form-control" name="confirmemail" placeholder="Confirm Email" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success btn-md"><i class="mdi mdi-account-plus"></i> Confirm Account</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>

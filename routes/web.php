@@ -36,6 +36,8 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::post('/announcement-data', [AdminController::class, 'getAnnouncementData']);
     Route::post('/about-data', [AdminController::class, 'getAboutData']);
     Route::post('/editAbout', [AdminController::class, 'editAbout']);
+    Route::post('/addAccount', [AdminController::class, 'addAccount']);
+    Route::get('/accounts/{type}', [AdminController::class, 'showAccounts']);
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
 });
@@ -49,9 +51,11 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::get('/details-registration/{id}', [RegistrarController::class, 'detailsRegistration']);
     Route::post('/accept-enrollee', [RegistrarController::class,'acceptEnrollee']);
     Route::get('/announcement', [RegistrarController::class, 'showAnnouncements']);
+    Route::post('/addAnnouncement', [RegistrarController::class, 'addAnnouncement']);
     Route::get('/getDataAnn/{id}', [RegistrarController::class, 'getAnnouncementData']);
     Route::post('/update-announcement', [RegistrarController::class, 'updateAnnouncement']);
     Route::post('/remove-announcement', [RegistrarController::class, 'removeAnnouncement']);
+    Route::get('/class-manage', [RegistrarController::class, 'showClasses']);
 });
 
 

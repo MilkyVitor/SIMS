@@ -231,6 +231,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="addAnnouncement" tabindex="-1" aria-expanded="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5">Add Announcement</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/addAnnouncement" method="POST" enctype="multipart/form-data">
+                    @csrf
+                <div class="card-body">
+                    <div class="form-group col-md-12">
+                        <label for="">Headline</label>
+                        <input type="text" class="form-control" name="headline" placeholder="Enter Headline..." required>
+                        <label for="">Description</label>
+                        <textarea name="description" class="form-control" cols="5" rows="5" placeholder="Enter Description..."></textarea>
+                        <label for="">Post for:</label>
+                        <select name="postedAt" class="form-control" >
+                            <option disabled selected>-Select-</option>
+                            <option value="General">General</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Students">Students</option>
+                        </select>
+                        <input type="hidden" name="author" value="{{auth()->user()->account_type." ".auth()->user()->name}}">
+                        <label for="">Image</label>
+                        <input type="file" name="image" class="form-control">
+                     {{--    <label for="">Attachment</label>
+                        <input type="file" name="attachment" class="form-control"> --}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-flat"><i class="mdi mdi-send"></i> Submit</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="viewAnnouncement">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -339,6 +380,93 @@
             </div>
         </form>
 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="studentInfo">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Student Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <legend>Personal Information</legend>
+                    <hr>
+                    <div class="form-group col-md-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" id="ViewFN" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" id="ViewMN" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" id="ViewLN" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Suffix</label>
+                        <input type="text" class="form-control" id="ViewS" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Gender</label>
+                        <input type="text" class="form-control" id="ViewG" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Date of Birth</label>
+                        <input type="text" class="form-control" id="ViewDoB" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Place of Birth</label>
+                        <input type="text" class="form-control" id="ViewPB" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" id="ViewCN" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input type="text" class="form-control" id="ViewEA" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Home Address</label>
+                        <input type="text" class="form-control" id="ViewA" readonly>
+                    </div>
+                    <legend>Guardian Details</legend>
+                    <hr>
+                    <div class="form-group col-md-6">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="ViewGN" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Relationship</label>
+                        <input type="text" class="form-control" id="ViewGR" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" id="ViewGC" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Address</label>
+                        <input type="text" class="form-control" id="ViewGA" readonly>
+                    </div>
+                    <legend>Academic Information</legend>
+                    <hr>
+                    <div class="form-group col-md-6">
+                        <label>Grade Level</label>
+                        <input type="text" class="form-control" id="ViewGL" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Student Type</label>
+                        <input type="text" class="form-control" id="ViewST" readonly>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

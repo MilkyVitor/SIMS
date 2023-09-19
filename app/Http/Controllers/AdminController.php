@@ -6,14 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\Announcements;
 use App\Models\Home;
+use App\Models\User;
 
 
 
 
 class AdminController extends Controller
 {
+    private $title;
+    private $school;
+    private $user;
+
+    public function __construct(){
+        $this->title = "SIMS Administrator";
+        $this->school = "School Information Management System";
+        $this->user = 'Administrator';
+        $this->constants = ['title' => $this->title, 'user' => $this->user, 'school' => $this->school];
+    }
 
     public function logOut(){
         Session::flush();
@@ -23,22 +36,18 @@ class AdminController extends Controller
     }
 
     public function home(){
-        $title = "SIMS Administrator";
-        $school = "School Information Management System";
-        $constants = ['title' => $title, 'user' => 'Admin', 'school' => $school];
+       
 
-        return view('Administrator.home', $constants);
+        return view('Administrator.home', $this->constants);
     }
     public function updateMasterPage(){
-        $title = "SIMS Administrator";
-        $school = "School Information Management System";
         $home = Home::where('isActive', 1)->get();
         $announcements = Announcements::where('isActive', 1)->get();
         $about = DB::table('inq_about')->get();
 
-        $constants = ['title' => $title, 'user' => 'Admin', 'school' => $school, 'home' => $home, 'announcements' => $announcements, 'about' => $about];
+        // $constants = ['title' => $title, 'user' => 'Admin', 'school' => $school];
 
-        return view('Administrator.ump', $constants);
+        return view('Administrator.ump', $this->constants, ['home' => $home, 'announcements' => $announcements, 'about' => $about]);
     }
 
     public function getHomeData(Request $request){
@@ -70,14 +79,7 @@ class AdminController extends Controller
         'postedAt' => 'required', 
         'author' => 'required',
         'image' => 'required|image|mimes:jpeg,png,jpg|max:100000',
-         
-        
         ]);
-
-      
-
-        
-
         $addAnnouncement = new Announcements;
         $addAnnouncement->Headline = $validated['headline'];
         $addAnnouncement->Description = $validated['description'];
@@ -88,10 +90,7 @@ class AdminController extends Controller
             $request->image->storeAs('public/images', $imagename);
             $addAnnouncement->Image = $imagename;
         } else if (!$request->hasFile('image')) {
-           
-
             $addAnnouncement->Image = "Logo.png";
-
         }
 
         $addAnnouncement->Attachment = "";
@@ -169,6 +168,26 @@ class AdminController extends Controller
             }
         
         
+    }
+
+    public function addAccount(Request $request) {
+        $addaccount = new User;
+        $addaccount->name = $request->name;
+        $addaccount->email = $request->email;
+        $addaccount->password = Hash::make("password");
+        $addaccount->account_type = $request->type;
+        $addaccount->unique_id = strtoupper(Str::random(6));
+
+        if($addaccount->save()){
+            return redirect('/Administrator');
+        }
+     
+    }
+
+    public function showAccounts($type) {
+        $accounts = User::where('account_type', $type)->get();
+
+        return view('Administrator.acc', $this->constants, ['accounts' => $accounts]);
     }
     
 

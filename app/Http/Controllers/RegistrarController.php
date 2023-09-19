@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use App\Models\StudentInfo;
 use App\Models\User;
+use App\Models\Section;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,8 +39,9 @@ class RegistrarController extends Controller
 
         $srdata = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'No')->get();
         $enrollee = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'Yes')->where('isEnrolled', 'No')->get();
+        $students = StudentInfo::where('isEnrolled', 'Yes')->get();
 
-        return view('Registrar.sr',  $this->constants,['srdata' => $srdata, 'enrollee' => $enrollee]);
+        return view('Registrar.sr',  $this->constants,['srdata' => $srdata, 'enrollee' => $enrollee, 'students' => $students]);
     }
 
     public function sendRegistration(Request $request){
@@ -152,6 +154,49 @@ class RegistrarController extends Controller
         if($delete){
             return redirect('/announcement')->with('success', 'You have remove the announcement!');
         }
+    }
+
+    public function addAnnouncement(Request $request) {
+        $validated = $request->validate(['headline' => 'required', 
+        'description' => 'required', 
+        'postedAt' => 'required', 
+        'author' => 'required',
+         
+        
+        ]);
+
+      
+
+        
+
+        $addAnnouncement = new Announcements;
+        $addAnnouncement->Headline = $validated['headline'];
+        $addAnnouncement->Description = $validated['description'];
+        $addAnnouncement->PostedAt = $validated['postedAt'];
+        $addAnnouncement->Author = $validated['author'];
+        if($request->hasFile('image')){
+            $imagename = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/images', $imagename);
+            $addAnnouncement->Image = $imagename;
+        } else if (!$request->hasFile('image')) {
+            $addAnnouncement->Image = "Logo.png";
+        }
+
+        $addAnnouncement->Attachment = "";
+        $addAnnouncement->isActive = 1;
+
+
+        if($addAnnouncement->save()){
+            return redirect('/announcement')->with('success', 'Announcement added!');
+        } else {
+            echo "Error";
+        }
+
+    }
+
+    public function showClasses(){
+        $section = Section::where('isActive', 1)->get();
+        return view('Registrar.cm', $this->constants, ['section' => $section]);
     }
 
 }

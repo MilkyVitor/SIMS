@@ -12,6 +12,7 @@
             <a href="/Registrar" class="list-group-item list-group-item-action active" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
             <a href="/announcement" class="list-group-item list-group-item-action"><i class="mdi mdi-bulletin-board"></i> Announcement Management</a>
             <a href="/student-registration" class="list-group-item list-group-item-action"><i class="mdi mdi-account-multiple-plus"></i> Students Management</a>
+            <a href="/class-manage" class="list-group-item list-group-item-action"><i class="mdi mdi-google-classroom"></i> Class Management</a>
             {{-- <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 3</a> --}}
           </div>
      

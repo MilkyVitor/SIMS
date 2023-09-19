@@ -250,20 +250,22 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Grade and Section</th>
                                         <th>Date Enrolled</th>
                                         <th>Tools</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                   @foreach ($students as $row)
+                                       <tr>
+                                            <td>{{$row->ID}}</td>
+                                            <td>{{$row->first_name." ".$row->last_name }}</td>
+                                            <td>{{$row->updated_at->format('F d, Y')}}</td>
+                                            <td>
+                                                <button class="btn btn-flat btn-sm btn-success view-student" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#studentInfo" >View</button>
+                                            </td>
+                                       </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -330,6 +332,11 @@
             var ac = $(this).data('bs-id');
             getData(ac);
         });
+        $('.view-student').click(function(e){
+            e.preventDefault();
+            var vs = $(this).data('bs-id');
+            getData(vs);
+        });
     });
 
     function getData(id){
@@ -357,6 +364,22 @@
                 $('#DGuardianAddress').val(response.data.guardian_address);
                 $('#DGradeLevel').val(response.data.grade_level);
                 $('#DStudentType').val(response.data.student_type);
+                $('#ViewFN').val(response.data.first_name);
+                $('#ViewMN').val(response.data.middle_name);
+                $('#ViewLN').val(response.data.last_name);
+                $('#ViewS').val(response.data.suffix);
+                $('#ViewG').val(response.data.gender);
+                $('#ViewDoB').val(response.data.date_birth);
+                $('#ViewPB').val(response.data.place_birth);
+                $('#ViewCN').val(response.data.contact_number);
+                $('#ViewEA').val(response.data.email_address);
+                $('#ViewA').val(response.data.student_address);
+                $('#ViewGN').val(response.data.guardian_name);
+                $('#ViewGR').val(response.data.guardian_relation);
+                $('#ViewGC').val(response.data.guardian_contact);
+                $('#ViewGA').val(response.data.guardian_address);
+                $('#ViewGL').val(response.data.grade_level);
+                $('#ViewST').val(response.data.student_type);
                 console.log(response);
             }
         });
