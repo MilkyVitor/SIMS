@@ -470,3 +470,48 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="viewSectionStudents">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <div class="modal-title fs-5">List of Students</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                    <table class="table table-striped data-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Tools</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewStudentsInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Student Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>

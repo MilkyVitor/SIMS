@@ -8,8 +8,11 @@ use Illuminate\Support\Str;
 use App\Models\StudentInfo;
 use App\Models\User;
 use App\Models\Section;
+use App\Models\Classes;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 class RegistrarController extends Controller
 {
@@ -195,8 +198,22 @@ class RegistrarController extends Controller
     }
 
     public function showClasses(){
-        $section = Section::where('isActive', 1)->get();
-        return view('Registrar.cm', $this->constants, ['section' => $section]);
+         $section = Section::where('isActive', 1)->get();
+         return view('Registrar.cm', $this->constants, ['section' => $section]);
+    }
+
+    public function getSectionStudentsData($id){
+        $data = DB::table('student')
+                ->join('student_info', 'student.student_id', '=', 'student_info.user_id')
+                ->where('section_id', $id)->get();
+
+        return response()->json(['data' => $data]);
+    }
+
+    public function getStudentInfo($id) {
+        $data = StudentInfo::where('user_id', $id)->first();
+
+        return response()->json(['data' => $data]);
     }
 
 }

@@ -56,6 +56,9 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::post('/update-announcement', [RegistrarController::class, 'updateAnnouncement']);
     Route::post('/remove-announcement', [RegistrarController::class, 'removeAnnouncement']);
     Route::get('/class-manage', [RegistrarController::class, 'showClasses']);
+    Route::get('/getSectionStudents/{id}', [RegistrarController::class, 'getSectionStudentsData']);
+    Route::get('/getStudentInfo/{id}', [RegistrarController::class, 'getStudentInfo']);
+
 });
 
 
