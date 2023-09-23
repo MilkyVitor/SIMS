@@ -9,6 +9,7 @@ use App\Models\StudentInfo;
 use App\Models\User;
 use App\Models\Section;
 use App\Models\Classes;
+use App\Models\Schedules;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -199,7 +200,10 @@ class RegistrarController extends Controller
 
     public function showClasses(){
          $section = Section::where('isActive', 1)->get();
-         return view('Registrar.cm', $this->constants, ['section' => $section]);
+         $schedules = DB::table('schedule')
+                      ->join('sections', 'sections.ID', '=' , 'schedule.section_id')
+                      ->where('schedule.isActive', 1)->get();
+         return view('Registrar.cm', $this->constants, ['section' => $section, 'schedules' => $schedules]);
     }
 
     public function getSectionStudentsData($id){
@@ -214,6 +218,31 @@ class RegistrarController extends Controller
         $data = StudentInfo::where('user_id', $id)->first();
 
         return response()->json(['data' => $data]);
+    }
+
+    public function getScheduleData($id){
+        $data = DB::table('schedule')
+                ->join('sections', 'sections.ID', '=' , 'schedule.section_id')
+                ->where('schedule.ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function editSchedule(Request $request){
+         $update = Schedules::where('ID', $request->scheduleID)
+                    ->update(['subject' => $request->subject, 'time_from' => $request->timefrom, 'time_to' => $request->timeto, 'room' => $request->room, 'teacher' => $request->teacher]);
+        
+        if($update){
+            return redirect('/class-manage')->with('success', "You updated a schedule for ". $request->gradesection .", updating system...");
+        }
+    }
+
+    public function removeSchedule(Request $request){
+         $delete = Schedules::where('ID', $request->scheduleID)
+                    ->update(['isActive' => 0]);
+        
+        if($delete){
+            return redirect('/class-manage')->with('success', "You have removed a schedule for ". $request->gradesection .", updating system...");
+        }
     }
 
 }

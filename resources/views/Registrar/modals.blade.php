@@ -1,3 +1,22 @@
+{{-- <div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Template</h1>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div> --}}
+
 <div class="modal fade" id="viewStudentRegistration">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -501,7 +520,7 @@
 </div>
 
 <div class="modal fade" id="viewStudentsInfo">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -510,8 +529,186 @@
             </div>
 
             <div class="modal-body">
-
+                <div class="row">
+                    <legend>Personal Information</legend>
+                    <hr>
+                    <div class="form-group col-md-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control firstname" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control middlename" placeholder="N/A" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control lastname" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Suffix</label>
+                        <input type="text" class="form-control suffix" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Gender</label>
+                        <input type="text" class="form-control gender" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Date of Birth</label>
+                        <input type="text" class="form-control datebirth" readonly>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Place of Birth</label>
+                        <input type="text" class="form-control placebirth" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control contactnumber" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input type="text" class="form-control emailaddress" readonly>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Home Address</label>
+                        <input type="text" class="form-control homeaddress" readonly>
+                    </div>
+                    <legend>Guardian Information</legend>
+                    <hr>
+                    <div class="form-group col-md-12">
+                        <label>Name</label>
+                        <input type="text" class="form-control gname" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Relationship</label>
+                        <input type="text" class="form-control grelationship" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control gcontact" readonly>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Home Address</label>
+                        <input type="text" class="form-control ghome" readonly>
+                    </div>
+                    <legend>Academic Information</legend>
+                    <hr>
+                    <div class="form-group col-md-6">
+                        <label>Grade Level</label>
+                        <input type="text" class="form-control gradelevel" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Type</label>
+                        <input type="text" class="form-control studentType" readonly>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editSchedule">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Schedule</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/editSchedule" method="POST">
+                    @csrf
+                    <input type="hidden" name="scheduleID" class="scheduleID">
+                <div class="form-group col-md-12">
+                    <label>Grade & Section</label>
+                    <input type="text" class="form-control grade-section" name="gradesection"  readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject" name="subject" required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>From</label>
+                    <select name="timefrom" class="form-control timefrom">
+                        <option disabled selected>-Select-</option>
+                        <option value="10:00am">10:00am</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>To</label>
+                    <select name="timeto" class="form-control timeto">
+                        <option disabled selected>-Select-</option>
+                        <option value="11:00am">11:00am</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Room</label>
+                    <input type="text" class="form-control room" name="room" >
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Teacher</label>
+                    <select name="teacher" class="form-control teacher">
+                        <option disabled selected>-Select-</option>
+                        <option value="AFASDA">AFASDA</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-md btn-flat btn-success"><i class="mdi mdi-check"></i> Update</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeSchedule">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Remove Schedule</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to remove this schedule?</p>
+                <br>
+                <form action="/removeSchedule" method="POST">
+                    @csrf
+                    <input type="hidden" class="scheduleID" name="scheduleID">
+                <div class="form-group col-md-12">
+                    <label>Grade & Section</label>
+                    <input type="text" class="form-control grade-section"  readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject" name="subject" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>From</label>
+                    <input type="text" class="form-control timefrom" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>To</label>
+                    <input type="text" class="form-control timeto" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Room</label>
+                    <input type="text" class="form-control room" name="room" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Teacher</label>
+                    <input type="text" class="form-control teacher" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-md btn-flat btn-danger"><i class="mdi mdi-delete"></i> Delete</button>
+            </div>
+        </form>
+
         </div>
     </div>
 </div>
