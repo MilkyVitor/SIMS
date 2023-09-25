@@ -60,7 +60,12 @@
                                                 <td>{{$row->grade_level}}</td>
                                                 <td>{{$row->section_name}}</td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm btn-flat viewss" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#viewSectionStudents" ><i class="mdi mdi-eye"></i> View Students</button>
+                                                    <form action="/getSectionStudents" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" value="{{$row->ID}}" name="sectionID">
+                                                        <button class="btn btn-primary btn-sm btn-flat" ><i class="mdi mdi-eye"></i> View Students</button>
+
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -136,11 +141,7 @@
 
 <script>
     $(function() {
-    $('.viewss').click( function(e) {
-        e.preventDefault();
-        var ss = $(this).data('bs-id');
-        getListStudent(ss);
-    });   
+   
 
     $('.schedule').click( function(e) {
         e.preventDefault();
@@ -148,64 +149,8 @@
         getScheduleData(sched);
     });    
 
-    $(document).on('click', '.view-student', function(e) {
-        e.preventDefault();
-        var vs = $(this).data('bs-id');
-        getstudentData(vs);
-     
-    }); //Somehow worked in this code// Be a reminder
    });
    
-    function getListStudent(id){
-    $.ajax({
-        method: 'GET',
-        url: '/getSectionStudents/'+ id,
-        success: function(response) {
-            var table = $('#viewSectionStudents tbody');
-            table.empty();
-            var newRow = $('<tr>');
-                $.each(response.data, function(index, item) {
-            // Create a new row for each item in the response
-            var newRow = $('<tr>');
-            
-            // Add data to the table cells 
-            newRow.append($('<td>').text(item.first_name + ' ' + item.last_name));
-            newRow.append($('<td>').html('<button class="btn btn-flat btn-sm btn-success view-student" data-bs-id="'+ item.user_id +'" data-bs-toggle="modal" data-bs-target="#viewStudentsInfo"><i class="mdi mdi-eye"></i> View Info</button>'));
-            
-            // Append the new row to the table
-            table.append(newRow); // Replace 'yourTableId' with your table's actual ID
-        });
-          
-        }
-    });
-   }
-   
-   function getstudentData(id) {
-    $.ajax({
-        method: 'GET',
-        url: '/getStudentInfo/' + id,
-        success: function(response) {
-            $('.firstname').val(response.data.first_name);
-            $('.middlename').val(response.data.middle_name);
-            $('.lastname').val(response.data.last_name);
-            $('.suffix').val(response.data.suffix);
-            $('.gender').val(response.data.gender);
-            $('.datebirth').val(response.data.date_birth);
-            $('.placebirth').val(response.data.place_birth);
-            $('.contactnumber').val(response.data.contact_number);
-            $('.emailaddress').val(response.data.email_address);
-            $('.homeaddress').val(response.data.student_address);
-            $('.gname').val(response.data.guardian_name);
-            $('.grelationship').val(response.data.guardian_relation);
-            $('.gcontact').val(response.data.guardian_contact);
-            $('.ghome').val(response.data.guardian_address);
-            $('.gradelevel').val(response.data.grade_level);
-            $('.studentType').val(response.data.student_type);
-        }
-    })
-        
-   }
-
    function getScheduleData(id){
     $.ajax({
         method: "GET",

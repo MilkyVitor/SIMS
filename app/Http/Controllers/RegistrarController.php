@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Section;
 use App\Models\Classes;
 use App\Models\Schedules;
+use App\Models\DocumentRequests;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -206,12 +207,12 @@ class RegistrarController extends Controller
          return view('Registrar.cm', $this->constants, ['section' => $section, 'schedules' => $schedules]);
     }
 
-    public function getSectionStudentsData($id){
+    public function getSectionStudentsData(Request $request){
         $data = DB::table('student')
                 ->join('student_info', 'student.student_id', '=', 'student_info.user_id')
-                ->where('section_id', $id)->get();
-
-        return response()->json(['data' => $data]);
+                ->where('section_id', $request->sectionID)->get();
+        $section = Section::where('ID', $request->sectionID)->first();
+         return view('Registrar.cm-ssv', $this->constants, ['data' => $data, 'section' => $section]);
     }
 
     public function getStudentInfo($id) {
@@ -242,6 +243,30 @@ class RegistrarController extends Controller
         
         if($delete){
             return redirect('/class-manage')->with('success', "You have removed a schedule for ". $request->gradesection .", updating system...");
+        }
+    }
+
+    public function documentRequests(){
+         $students = StudentInfo::join('document_requests', 'student_info.user_id', '=', 'document_requests.student_id')
+         ->where(['isActive' => 1, 'date_acknowledged' => NULL])
+         ->get();
+         return view('Registrar.dr', $this->constants, ['students' => $students]);
+       
+    }
+
+    public function getDocumentLists(Request $request){
+        $data = DocumentRequests::join('student_info', 'student_info.user_id', '=', 'document_requests.student_id')
+                ->where('student_id', $request->studentID)
+                ->get();
+        return view('Registrar.drv', $this->constants, ['data' => $data]);
+    }
+
+    public function acknowledgeDocs(Request $request) {
+        $acknowledge = DocumentRequests::where(['student_id' => $request->studentID, 'date_acknowledged' => NULL ]) 
+                ->update(['date_acknowledged' => now()]);
+        
+        if($acknowledge) {
+            return redirect('/document-requests')->with('success', 'You had acknowledged a request! Informing them now...');
         }
     }
 

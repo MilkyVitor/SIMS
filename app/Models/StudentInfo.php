@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Classes;
+use App\Models\DocumentRequests;
 
 class StudentInfo extends Model
 {
@@ -12,13 +13,8 @@ class StudentInfo extends Model
 
     protected $table = 'student_info';
 
-   /**
-    * Get the user that owns the StudentInfo
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
-   public function classes()
-   {
-       return $this->belongsTo(Classes::class, 'student_id', 'user_id');
-   }
+    public function documentrequests() {
+        return $this->hasMany(DocumentRequests::class, 'student_id', 'user_id')->selectRaw('*, updated_at as "DocUpDate"');
+    }
+
 }

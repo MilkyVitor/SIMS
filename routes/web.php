@@ -56,11 +56,14 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::post('/update-announcement', [RegistrarController::class, 'updateAnnouncement']);
     Route::post('/remove-announcement', [RegistrarController::class, 'removeAnnouncement']);
     Route::get('/class-manage', [RegistrarController::class, 'showClasses']);
-    Route::get('/getSectionStudents/{id}', [RegistrarController::class, 'getSectionStudentsData']);
+    Route::post('/getSectionStudents', [RegistrarController::class, 'getSectionStudentsData']);
     Route::get('/getStudentInfo/{id}', [RegistrarController::class, 'getStudentInfo']);
     Route::get('/getScheduleData/{id}', [RegistrarController::class, 'getScheduleData']);
     Route::post('/editSchedule', [RegistrarController::class, 'editSchedule']);
     Route::post('/removeSchedule', [RegistrarController::class, 'removeSchedule']);
+    Route::get('/document-requests', [RegistrarController::class, 'documentRequests']);
+    Route::post('/getDocumentsList', [RegistrarController::class, 'getDocumentLists']);
+    Route::post('/acknowledgedocs', [RegistrarController::class, 'acknowledgeDocs']);
 
 });
 
