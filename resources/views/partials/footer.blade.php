@@ -33,4 +33,22 @@
     });
 </script>
 
+<script>
+    function formatDate(responseDate) {
+        const date = new Date(responseDate);
+
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const month = monthNames[date.getMonth()];
+        const day = date.getDate();
+        const year = date.getFullYear();
+
+        const formattedDate = `${month} ${day}, ${year}`;
+        return formattedDate;
+    }
+</script>
+
 </html>

@@ -5,7 +5,7 @@
 @include('Administrator.modals')
 
     <div class="container">
-        <h1 class="text-center">Update Master Page</h1>
+        <h1 class="text-center"> Public Page Management</h1>
         <hr class="white-line">
         
                  @if(session('success'))

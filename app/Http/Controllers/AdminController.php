@@ -190,7 +190,42 @@ class AdminController extends Controller
         return view('Administrator.acc', $this->constants, ['accounts' => $accounts]);
     }
     
+    public function controlPanel(){
+        $control = DB::table('control_panel')->where('isActive', 1)->get();
+        return view('Administrator.cp', $this->constants, ['control' => $control]);
+    }
 
+    public function toggle(Request $request){
+        if($request->status == 1){
+            $changed = 0;
+            $status = "Off";
+        } else {
+            $changed = 1;
+            $status = "On";
+        }
+        $toggle = DB::table('control_panel')->where('ID', $request->ID)->update(['status' => $changed]);
+        return redirect()->route('control-panel')->with('success', "Toggled ".$status." for ".$request->function );
+    }
+
+    public function feedback(){
+        $feedback = DB::table('feedback')->where('isActive', 1)->get();
+        return view('Administrator.s', $this->constants, ['feedback' => $feedback]);
+    }
+
+    public function getFeedbackData($id) {
+        $data = DB::table('feedback')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function acknowledgeFeedback(Request $request){
+        if($request->comment == ""){
+            $comment = NULL;
+        } else {
+            $comment = $request->comment;
+        }
+        $acknowledge = DB::table('feedback')->where('ID', $request->feedbackID)->update(['acknowledged_by' => $request->name, 'isAcknowledged' => 1, 'date_acknowledged' => now(), 'comment' => $comment]);
+        return redirect()->route('feedback')->with('success', 'You have acknowledged '.$request->from.' feedback');
+    }
    
 
 

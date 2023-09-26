@@ -38,6 +38,11 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::post('/editAbout', [AdminController::class, 'editAbout']);
     Route::post('/addAccount', [AdminController::class, 'addAccount']);
     Route::get('/accounts/{type}', [AdminController::class, 'showAccounts']);
+    Route::get('/control-panel', [AdminController::class, 'controlPanel'])->name('control-panel');
+    Route::post('/toggle', [AdminController::class, 'toggle']);
+    Route::get('/feedback', [AdminController::class, 'feedback'])->name('feedback');
+    Route::get('/getfeedbackdata/{id}', [AdminController::class, 'getFeedbackData']);
+    Route::post('/acknowledge', [AdminController::class, 'acknowledgeFeedback']);
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
 });

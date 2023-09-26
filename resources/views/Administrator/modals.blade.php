@@ -228,3 +228,77 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="readFeedback">
+    <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Reading Feedback</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+            </div>
+    
+            <div class="modal-body">
+                <div class="text-start">
+                    <p>Date Written: <span class="date-created"></span></p>
+                </div>
+                <div class="card m-1 rounded">
+                    <div class="card-body">
+                        <p class="fst-italic text-centered">"<span class="feedback"></span>"</p>
+                        <div class="text-end">
+                            <h6>- <span class="name"></span></h6>
+                        </div>
+                    </div>
+                </div>
+                <form action="/acknowledge" method="POST">
+                @csrf
+                <input type="hidden" class="feedbackID" name="feedbackID">
+                <input type="hidden" value="{{auth()->user()->name}}" name="name">
+                <input type="hidden" class="name" name="from">
+                <div class="form-group col-md-12">
+                    <label>Comment: </label>
+                    <textarea name="comment" class="form-control" cols="5" rows="5" placeholder="Enter your comment..."></textarea>
+                </div>
+            </div>
+    
+            <div class="modal-footer">
+                    <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-check"></i> Acknowledge</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewFeedback">
+    <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Reading Feedback</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+            </div>
+    
+            <div class="modal-body">
+                <div class="text-start">
+                    <p>Date Written: <span class="date-created"></span></p>
+                </div>
+                <div class="card m-1 rounded">
+                    <div class="card-body">
+                        <p class="fst-italic text-centered">"<span class="feedback"></span>"</p>
+                        <div class="text-end">
+                            <h6>- <span class="name"></span></h6>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="form-group col-md-12">
+                    <label>Comment: </label>
+                    <textarea name="comment" class="form-control comment" cols="5" rows="5" placeholder="No Comment"></textarea>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</div>

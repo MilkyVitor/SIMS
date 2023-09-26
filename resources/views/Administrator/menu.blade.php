@@ -11,8 +11,8 @@
         <div class="list-group list-group-flush">
             <a href="{{route('Administrator')}}" class="list-group-item list-group-item-action active" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
             <a href="{{route('update-master-page')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-monitor-edit"></i> Update Master Page</a>
-            <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 2</a>
-            <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 3</a>
+            <a href="{{route('control-panel')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-toggle-switch"></i> Control Panel</a>
+            <a href="{{route('feedback')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-comment-account-outline"></i> Suggestions</a>
           </div>
      
      
