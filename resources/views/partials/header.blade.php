@@ -24,6 +24,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/inquiry_styles.css') }}">
 
+    <?php
+    function emergencyFormatDate($datestring){
+        return \Illuminate\Support\Carbon::parse($datestring)->format('F d, Y');
+    }
+?>
 </head>
 
                     

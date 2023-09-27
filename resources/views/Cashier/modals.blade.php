@@ -145,3 +145,65 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="viewTransactInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label> Evaluated By: </label>
+                    <input type="text" class="form-control evaluatedBy" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label> Amount: </label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label> Attachment: </label>
+                    <img class="form-control imagepreview img-fluid img-responsive" >
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="setTransactInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Set Transaction</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label> Amount: </label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label> Attachment: </label>
+                    <img class="form-control imagepreview img-fluid img-responsive" >
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/setPaid" method="POST">
+                    @csrf
+                    <input type="hidden" class="transactID" name="transactID">
+                    <input type="hidden" class="paymentinfoID" name="paymentinfoID">
+                    <input type="hidden" value="{{auth()->user()->name}}" name="evaluator">
+                    <button class="btn btn-lg btn-success"><i class="mdi mdi-check"></i> Set Paid</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> 

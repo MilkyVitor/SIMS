@@ -11,6 +11,7 @@
         <div class="list-group list-group-flush">
             <a href="{{route('Cashier')}}" class="list-group-item list-group-item-action active" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
             <a href="{{route('payment-registration')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-monitor-edit"></i> Payment Registration</a>
+            <a href="{{route('payment-management')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-cash-register"></i> Payment Management</a>
           </div>
      
      

@@ -49,6 +49,15 @@
         const formattedDate = `${month} ${day}, ${year}`;
         return formattedDate;
     }
+
+    function setImage(directory, imageresult){
+                var imageData = directory + imageresult;
+                var imagePreviews = document.getElementsByClassName("imagepreview");
+                for (var i = 0; i < imagePreviews.length; i++) {
+                    imagePreviews[i].setAttribute("src", imageData);
+                }
+    }
 </script>
+
 
 </html>

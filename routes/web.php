@@ -78,6 +78,11 @@ Route::middleware(['auth', 'CashierOnly'])->group(function () {
     Route::get('/payment-registration', [CashierController::class, 'showPaymentRegistration'])->name('payment-registration');
     Route::get('/getPRDetails/{id}', [CashierController::class, 'getDetails']);
     Route::post('/mark-paid', [CashierController::class, 'markPaid']);
+    Route::get('/payment-management', [CashierController::class, 'paymentManagement'])->name('payment-management');
+    Route::post('/getLists', [CashierController::class, 'getLists']);
+    Route::post('/getInformation', [CashierController::class, 'getInformation']);
+    Route::get('/getTransactData/{id}', [CashierController::class, 'getTransactData']);
+    Route::post('/setPaid', [CashierController::class, 'setPaid']);
     
 });
 
