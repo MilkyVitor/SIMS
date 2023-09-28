@@ -83,6 +83,12 @@ Route::middleware(['auth', 'CashierOnly'])->group(function () {
     Route::post('/getInformation', [CashierController::class, 'getInformation']);
     Route::get('/getTransactData/{id}', [CashierController::class, 'getTransactData']);
     Route::post('/setPaid', [CashierController::class, 'setPaid']);
+    Route::get('/payment-additionals', [CashierController::class, 'paymentAdditionals'])->name('payment-additionals');
+    Route::get('/getAdditionalsData/{id}', [CashierController::class, 'getAdditionals']);
+    Route::post('/viewListStudents', [CashierController::class, 'viewListStudents']);
+    Route::get('/getname/{id}', [CashierController::class, 'getName']);
+    Route::post('/setPaidAdd', [CashierController::class, 'setPaidAdd']);
+
     
 });
 

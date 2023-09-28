@@ -57,7 +57,11 @@
                     imagePreviews[i].setAttribute("src", imageData);
                 }
     }
+
+    
 </script>
+
+
 
 
 </html>

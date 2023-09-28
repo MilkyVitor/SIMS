@@ -207,3 +207,70 @@
         </div>
     </div>
 </div> 
+
+<div class="modal fade" id="viewDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control title" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control description" rows="5" readonly></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Issued By</label>
+                    <input type="text" class="form-control issuedBy" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/viewListStudents" method="POST">
+                    @csrf
+                    <input type="hidden" class="billID" name="billID">
+                    <button class="btn btn-lg btn-flat btn-primary"> <i class="mdi mdi-list-status"></i> List of Students </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="setPaidAdditionals">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Set as Paid</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to set this student as paid for <span class="title"></span></p>
+                <h1 class="student text-center" style="color:black"></h1>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/setPaidAdd" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                    <button class="btn btn-lg btn-flat btn-success"><i class="mdi mdi-pencil"></i> Set as Paid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

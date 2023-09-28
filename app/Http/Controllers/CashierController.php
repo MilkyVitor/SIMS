@@ -18,6 +18,7 @@ class CashierController extends Controller
     private $title; 
     private $school;
     private $constants;
+    
 
 
     public function __construct(){
@@ -90,6 +91,46 @@ class CashierController extends Controller
          $setpaid = DB::table('payment_transactions')->where('ID', $request->transactID)->update(['isPaid' => 1, 'evaluated_by' => $request->evaluator]);
         if($setpaid) {
            return redirect('/payment-management')->with('success', 'You have confirmed payment for '.$information->student_id);
+        }
+    }
+
+    public function paymentAdditionals() {
+        $additionals = DB::table('payment_additionals')->where('isActive', 1)->get();
+        return view('Cashier.pa', $this->constants, ['additionals' => $additionals]);
+    }
+
+    public function getAdditionals($id){
+        $data = DB::table('payment_additionals')->where('bill_id', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function viewListStudents(Request $request) {
+        $info = DB::table('payment_additionals')
+        ->where('bill_id', $request->billID)
+        ->first();
+        $lists = DB::table('payment_additionals')
+        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        ->select('*', 'payment_additionals.ID as pID','payment_additionals.isPaid as StatusPaid')
+        ->where('bill_id', $request->billID)->get();
+        $additionalstitle = $info->title;
+        return view('Cashier.pav', $this->constants, ['lists' => $lists, 'additionalstitle' => $additionalstitle]);
+    }
+
+    public function getName($id) {
+        $data = DB::table('payment_additionals')
+        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        ->select('*', 'payment_additionals.ID as pID')
+        ->where('payment_additionals.ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function setPaidAdd(Request $request) {
+        $setPaid = DB::table('payment_additionals')->where('ID', $request->ID)->update(['isPaid' => 1]);
+        $info = DB::table('payment_additionals')
+        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        ->where('payment_additionals.ID', $request->ID)->first();
+        if($setPaid){
+            return redirect('/payment-additionals')->with('success', 'You have set paid '.$info->first_name.' '.$info->last_name.' for '.$info->title);
         }
     }
 }
