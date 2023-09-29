@@ -88,6 +88,12 @@ Route::middleware(['auth', 'CashierOnly'])->group(function () {
     Route::post('/viewListStudents', [CashierController::class, 'viewListStudents']);
     Route::get('/getname/{id}', [CashierController::class, 'getName']);
     Route::post('/setPaidAdd', [CashierController::class, 'setPaidAdd']);
+    Route::post('/issueAdd', [CashierController::class, 'issueAdd']);
+    Route::post('/editDetails', [CashierController::class, 'editDetails']);
+    Route::get('/account-numbers', [CashierController::class, 'accountNumbers'])->name('account-numbers');
+    Route::get('/getNumber/{id}', [CashierController::class, 'getNumberData']);
+    Route::post('/editNumber', [CashierController::class, 'editNumber']);
+    Route::post('/deleteNumber', [CashierController::class, 'deleteNumber']);
 
     
 });

@@ -13,6 +13,7 @@
             <a href="{{route('payment-registration')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-monitor-edit"></i> Payment Registration</a>
             <a href="{{route('payment-management')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-cash-register"></i> Payment Management</a>
             <a href="{{route('payment-additionals')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-cash-plus"></i> Payment Additionals</a>
+            <a href="{{route('account-numbers')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-credit-card"></i> Account Numbers</a>
           </div>
      
      

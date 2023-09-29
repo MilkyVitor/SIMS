@@ -1,3 +1,24 @@
+{{-- <div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Template</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>  --}}
+
 <div class="modal fade" id="viewPRDetails">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -249,6 +270,48 @@
     </div>
 </div> 
 
+<div class="modal fade" id="editDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="/editDetails" method="POST">
+                    @csrf
+                    <input type="hidden" class="billID" name="billID">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control title" name="title">
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control description" rows="5" name="description"></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Issued By</label>
+                    <input type="text" class="form-control issuedBy" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+              
+                    <button class="btn btn-lg btn-flat btn-primary"> <i class="mdi mdi-pencil"></i> Edit </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
 <div class="modal fade" id="setPaidAdditionals">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -269,6 +332,105 @@
                     @csrf
                     <input type="hidden" class="ID" name="ID">
                     <button class="btn btn-lg btn-flat btn-success"><i class="mdi mdi-pencil"></i> Set as Paid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="issueAdditionals">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Issue Additionals</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/issueAdd" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{auth()->user()->name}}" name="issuer">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter Title..." required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="10" placeholder="Enter Description..." required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control" name="amount" placeholder="Enter Amount..." required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Grade</label>
+                    <select name="grade" class="form-control" required>
+                        <option disabled selected>-Select-</option>
+                        <option value="Grade-1">Grade 1</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                    <button class="btn btn-lg btn-flat btn-success"><i class="mdi mdi-send"></i> Issue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="editNumber">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Number</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="/editNumber" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                <div class="form-group col-md-12">
+                    <label>Account Name:</label>
+                    <input type="text" class="form-control name" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Account Number:</label>
+                    <input type="text" class="form-control number" name="number" placeholder="Enter Number..." required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-pencil"></i> Update</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="deleteNumber">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Delete Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to delete this info?</p>
+                <h1 class="dname text-center" style="color:black"></h1>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/deleteNumber" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                    <button class="btn btn-lg btn-flat btn-danger"><i class="mdi mdi-delete"></i> Delete</button>
                 </form>
             </div>
         </div>

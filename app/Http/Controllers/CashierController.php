@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\StudentInfo;
 use App\Models\PaymentInfo;
 use App\Models\StudentTransact;
+use App\Models\PaymentAdditionals;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 
 
@@ -95,21 +98,22 @@ class CashierController extends Controller
     }
 
     public function paymentAdditionals() {
-        $additionals = DB::table('payment_additionals')->where('isActive', 1)->get();
+        $additionals = PaymentAdditionals::where('isActive', 1)
+        ->select('bill_id', 'title', 'amount')
+        ->distinct()    
+        ->get();
         return view('Cashier.pa', $this->constants, ['additionals' => $additionals]);
     }
 
     public function getAdditionals($id){
-        $data = DB::table('payment_additionals')->where('bill_id', $id)->first();
+        $data = PaymentAdditionals::where('bill_id', $id)->first();
         return response()->json(['data' => $data]);
     }
 
     public function viewListStudents(Request $request) {
-        $info = DB::table('payment_additionals')
-        ->where('bill_id', $request->billID)
+        $info = PaymentAdditionals::where('bill_id', $request->billID)
         ->first();
-        $lists = DB::table('payment_additionals')
-        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        $lists = PaymentAdditionals::join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
         ->select('*', 'payment_additionals.ID as pID','payment_additionals.isPaid as StatusPaid')
         ->where('bill_id', $request->billID)->get();
         $additionalstitle = $info->title;
@@ -117,20 +121,73 @@ class CashierController extends Controller
     }
 
     public function getName($id) {
-        $data = DB::table('payment_additionals')
-        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        $data = PaymentAdditionals::join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
         ->select('*', 'payment_additionals.ID as pID')
         ->where('payment_additionals.ID', $id)->first();
         return response()->json(['data' => $data]);
     }
 
     public function setPaidAdd(Request $request) {
-        $setPaid = DB::table('payment_additionals')->where('ID', $request->ID)->update(['isPaid' => 1]);
-        $info = DB::table('payment_additionals')
-        ->join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        $setPaid = PaymentAdditionals::where('ID', $request->ID)->update(['isPaid' => 1]);
+        $info = PaymentAdditionals::join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
         ->where('payment_additionals.ID', $request->ID)->first();
         if($setPaid){
             return redirect('/payment-additionals')->with('success', 'You have set paid '.$info->first_name.' '.$info->last_name.' for '.$info->title);
+        }
+    }
+
+    public function issueAdd(Request $request){
+
+
+        $students = StudentInfo::where('grade_level', $request->grade)->select('user_id')->get();
+        $billID = strtoupper(Str::random(10));
+        foreach($students as $student){
+            $add = new PaymentAdditionals;
+            $add->bill_id = $billID;
+            $add->title = $request->title;
+            $add->description = $request->description;
+            $add->amount = $request->amount;
+            $add->issued_by = $request->issuer;
+            $add->student_id = $student->user_id;
+            $add->isPaid = 0;
+            $add->isActive = 1;
+            $add->save();
+        }
+        return redirect('/payment-additionals')->with('success', 'You have updated details');
+
+       
+    }
+
+    public function editDetails(Request $request) {
+        echo $request->title;
+        $edit = PaymentAdditionals::where('bill_id', $request->billID)
+        ->update(['title' => $request->title, 'description' => $request->description]);
+        if($edit) {
+            return redirect('/payment-additionals')->with('success', 'You have updated details');
+        }
+    }
+
+    public function accountNumbers() {
+        $numbers = DB::table('account_numbers')->where('isActive', 1)->get();
+        return view('Cashier.an', $this->constants, ['numbers' => $numbers]);
+    }
+
+    public function getNumberData($id) {
+        $data = DB::table('account_numbers')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function editNumber(Request $request) {
+        $edit = DB::table('account_numbers')->where('ID', $request->ID)->update(['number' => $request->number]);
+        if($edit){
+            return redirect('/account-numbers')->with('success', 'You have updated number!');
+        }
+    }
+
+    public function deleteNumber(Request $request) {
+        $edit = DB::table('account_numbers')->where('ID', $request->ID)->update(['isActive' => 0]);
+        if($edit){
+            return redirect('/account-numbers')->with('success', 'You have deleted a number!');
         }
     }
 }

@@ -32,12 +32,14 @@
         <div class="col-md-12 stretch-card grid-margin">
             <div class="card overflow-y-auto">
                 <div class="card-body">
+                <button class="btn btn-sm btn-flat btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#issueAdditionals"><i class="mdi mdi-plus"></i> Issue Additionals</button>
+
                     <table class="table table-striped table-responsive data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Bill ID</th>
                                 <th>Title</th>
+                                <th>Amount</th>
                                 <th>Tools</th>
                             </tr>
                         </thead>
@@ -45,10 +47,11 @@
                         <tbody>
                             @foreach ($additionals as $row)
                                 <tr>
-                                    <td>{{$row->ID}}</td>
-                                    <td>{{$row->bill_id}}</td>
+                                    <td width="150">{{$row->bill_id}}</td>
                                     <td>{{$row->title}}</td>
-                                    <td>
+                                    <td>{{$row->amount}}</td>
+                                    <td width="300">
+                                        <button class="btn btn-sm btn-flat btn-primary view-details" data-bs-id="{{$row->bill_id}}" data-bs-toggle="modal" data-bs-target="#editDetails"><i class="mdi mdi-pencil"></i> Edit Details</button>
                                         <button class="btn btn-sm btn-flat btn-success view-details" data-bs-id="{{$row->bill_id}}" data-bs-toggle="modal" data-bs-target="#viewDetails"><i class="mdi mdi-eye"></i> View Details</button>
                                     </td>
                                 </tr>
