@@ -226,6 +226,55 @@ class AdminController extends Controller
         $acknowledge = DB::table('feedback')->where('ID', $request->feedbackID)->update(['acknowledged_by' => $request->name, 'isAcknowledged' => 1, 'date_acknowledged' => now(), 'comment' => $comment]);
         return redirect()->route('feedback')->with('success', 'You have acknowledged '.$request->from.' feedback');
     }
+
+    public function classManagement() {
+        $grade = DB::table('grade_level')->get();
+        $subjects = DB::table('subjects')->where('isActive', 1)->get();
+        return view('Administrator.cm', $this->constants, ['grade' => $grade, 'subjects' => $subjects]);
+    }
+
+    public function getgradeData($id) {
+        $data = DB::table('grade_level')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function activateGrade(Request $request) {
+        // echo $request->gradeID;
+        // echo $request->email;
+        // echo $request->password;
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $activate = DB::table('grade_level')->where('ID', $request->gradeID)->update(['isActive' => 1]);
+            return redirect()->route('class-management')->with('success', 'You have activated '.$request->gradename);
+        } else {
+            return redirect()->route('class-management')->with('error', 'Wrong password!');
+        }
+    }
+
+    public function getsubjectData($id) {
+        $data = DB::table('subjects')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function editSubject(Request $request) {
+        $edit = DB::table('subjects')->where('ID', $request->subID)->update(['name' => $request->subjectname, 'level' => $request->level]);
+        if($edit) {
+            return redirect()->route('class-management')->with('success', 'You have edited a subject!');
+        }
+    }
+
+    public function deleteSubject(Request $request) {
+      
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $remove = DB::table('subjects')->where('ID', $request->subID)->update(['isActive' => 0]);
+            if($remove) {
+                return redirect()->route('class-management')->with('success', 'You have removed a subject!');
+            }
+        } else {
+            return redirect()->route('class-management')->with('error', 'Wrong password!');
+        }
+        
+    }
    
 
 

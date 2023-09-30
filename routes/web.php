@@ -43,6 +43,13 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::get('/feedback', [AdminController::class, 'feedback'])->name('feedback');
     Route::get('/getfeedbackdata/{id}', [AdminController::class, 'getFeedbackData']);
     Route::post('/acknowledge', [AdminController::class, 'acknowledgeFeedback']);
+    Route::get('/class-management', [AdminController::class, 'classManagement'])->name('class-management');
+    Route::get('/getgradeData/{id}', [AdminController::class, 'getgradeData']);
+    Route::post('/activateGrade', [AdminController::class, 'activateGrade']);
+    Route::get('/getsubjectData/{id}', [AdminController::class, 'getsubjectData']);
+    Route::post('/editSubject', [AdminController::class, 'editSubject']);
+    Route::post('/deleteSubject', [AdminController::class, 'deleteSubject']);
+
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
 });

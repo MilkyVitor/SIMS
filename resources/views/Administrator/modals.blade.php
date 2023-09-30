@@ -1,3 +1,25 @@
+{{-- <div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Template</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>  --}}
+
+
 <div class="modal fade" id="homeUpdateModal" tabindex="-1" aria-expanded="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -302,3 +324,103 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="activateGrade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Activate Grade</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="/activateGrade" method="POST">
+                    @csrf
+                    <p class="text-center">Activate <span class="gradename"></span> by confirming password:</p>
+                    <div class="form-group col-md-12">
+                        <label>Password:</label>
+                        <input type="hidden" class="gradeID" name="gradeID">
+                        <input type="hidden" value="{{auth()->user()->email}}" name="email">
+                        <input type="hidden" class="gradename" name="gradename">
+                        <input type="password" class="form-control" name="password" placeholder="Enter password..." required>
+                    </div>
+              
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-success"><i class="mdi mdi-arrow-down-thin-circle-outline"></i> Activate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<div class="modal fade" id="editSubject">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Subject</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/editSubject" method="POST">
+                    @csrf
+                    <input type="hidden" class="subID" name="subID">
+                <div class="form-group col-md-12">
+                    <label>Name</label>
+                    <input type="text" class="form-control subjectname" name="subjectname" placeholder="Enter name..." required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Level</label>
+                    <select name="level" class="form-control level" required>
+                        <option disabled selected>-Select-</option>
+                        <option value="Elementary">Elementary</option>
+                        <option value="Junior High-School">Junior High-School</option>
+                        <option value="Senior High-School First">Senior High-School 1st Year </option>
+                        <option value="Senior High-School Second">Senior High-School 2nd Year </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-success"><i class="mdi mdi-pencil"></i> Edit</button>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeSubject">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Remove Subject</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/deleteSubject" method="POST">
+                    @csrf
+                <p class="text-center">Are you sure to remove this subject?</p>
+                <h1 class="text-center dsubjectname" style="color:black;"></h1>
+                <div class="form-group col-md-12">
+                    <label>Password</label>
+                    <input type="hidden" class="subID" name="subID">
+                    <input type="hidden" value="{{auth()->user()->email}}" name="email">
+                    <input type="password" class="form-control" name="password" placeholder="Enter password to confirm..." required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-danger"><i class="mdi mdi-delete"></i> Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

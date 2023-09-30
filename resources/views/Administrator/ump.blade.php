@@ -74,6 +74,7 @@
                     </div>
         
                 </div>
+                
                 <div class="tab-pane fade" id="nav-announcements" role="tabpanel" aria-labelledby="nav-announcements-tab" tabindex="0">
 
                     <div class="col-md-12 grid-margin stretch-card">
