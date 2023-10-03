@@ -34,7 +34,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-gl-tab" data-bs-toggle="tab" data-bs-target="#nav-gl" type="button" role="tab" aria-controls="nav-gl" aria-selected="true">Grade </button>
                 <button class="nav-link" id="nav-s-tab" data-bs-toggle="tab" data-bs-target="#nav-s" type="button" role="tab" aria-controls="nav-s" aria-selected="false"> Subjects </button>
-                {{-- <button class="nav-link" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about" type="button" role="tab" aria-controls="nav-about" aria-selected="false"> About Tab</button> --}}
+                <button class="nav-link" id="nav-r-tab" data-bs-toggle="tab" data-bs-target="#nav-r" type="button" role="tab" aria-controls="nav-r" aria-selected="false"> Room</button>
             </div>
         </nav>
 
@@ -123,6 +123,46 @@
 
         </div>
 
+        <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show" id="nav-r" role="tabpanel" aria-labelledby="nav-r-tab" tabindex="0">
+
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card m-1 overflow-y-auto">
+                        <div class="card-body">
+                            <h1 class="card-title">Rooms</h1>
+                            <table class="table table-striped data-table">
+                               <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Tools</th>
+                                    </tr>
+                               </thead>
+
+                               <tbody>
+                                    @foreach ($rooms as $row)
+                                        <tr>
+                                            <td>{{$row->ID}}</td>
+                                            <td>{{$row->name}}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-flat btn-success rooms" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#editRooms" ><i class="mdi mdi-pencil"></i> Edit</button>
+                                                <button class="btn btn-sm btn-flat btn-danger rooms" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#deleteRoom"><i class="mdi mdi-delete"></i> Delete</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                               </tbody>
+                                
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
 
     </main>
 
@@ -139,6 +179,11 @@
             e.preventDefault();
             var sed = $(this).data('bs-id');
             getsubjectData(sed);
+        });
+        $('.rooms').click( function(e) {
+            e.preventDefault();
+            var r = $(this).data('bs-id');
+            getroomsData(r);
         });
     });
 
@@ -166,6 +211,20 @@
             }
         });
     }
+
+    function getroomsData(id){
+        $.ajax({
+            method: 'GET',
+            url: '/getroomsData/' + id,
+            success: function(response) {
+                $('.roomID').val(response.data.ID);
+                $('.roomname').val(response.data.name);
+                $('.droomname').html(response.data.name);
+            }
+        });
+    }
+
+
 </script>
 
 @include('./partials.footer')

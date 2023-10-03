@@ -5,7 +5,7 @@
 @include('Administrator.modals')
 
     <main class="container">
-        <h1 class="text-center">Suggestions</h1>
+        <h1 class="text-center">Feedback</h1>
         <hr class="white-line">
 
         <div class="col-md-12">

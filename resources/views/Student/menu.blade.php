@@ -9,9 +9,10 @@
     <hr>
     <div class="offcanvas-body ">
         <div class="list-group list-group-flush">
-            <a href="/Student" class="list-group-item list-group-item-action active" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
+            <a href="/Student" class="list-group-item list-group-item-action" aria-current="true"><i class="mdi mdi-account"></i> Home</a>
+            <a href="/schedule" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-clock-outline"></i> Schedule</a>
+            <a href="/payment-records" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-clipboard-text-multiple-outline"></i> Payment Records</a>
             
-            {{-- <a href="#" class="list-group-item list-group-item-action"><i class="mdi mdi-account"></i> Button 3</a> --}}
           </div>
      
      

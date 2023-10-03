@@ -424,3 +424,67 @@
         </div>
     </div>
 </div> 
+
+<div class="modal fade" id="editRooms">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Room</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/editRoom" method="POST">
+                    @csrf
+                    <input type="hidden" class="roomID" name="roomID">
+                    <input type="hidden" value="{{auth()->user()->email}}" name="email">
+                <div class="form-group col-md-12">
+                    <label>Name</label>
+                    <input type="text" class="form-control roomname" name="roomname" placeholder="Enter name..." required>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter password to confirm..." required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-success"><i class="mdi mdi-pencil"></i> Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="deleteRoom">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Delete Room</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/removeRoom" method="POST">
+                    @csrf
+                    <input type="hidden" class="roomID" name="roomID">
+                    <input type="hidden" value="{{auth()->user()->email}}" name="email">
+                <p class="text-center">Are you sure to remove the room?</p>
+                <h1 class="text-center droomname" style="color: black"></h1>
+
+                <div class="form-group col-md-12">
+                    <label>Password:</label>
+                    <input type="password" class="form-control" placeholder="Enter password to confirm..." name="password" required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-danger"><i class="mdi mdi-delete"></i> Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

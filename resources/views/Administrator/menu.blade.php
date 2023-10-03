@@ -13,7 +13,7 @@
             <a href="{{route('update-master-page')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-monitor-edit"></i> Update Master Page</a>
             <a href="{{route('control-panel')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-toggle-switch"></i> Control Panel</a>
             <a href="{{route('class-management')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-cog-outline"></i> Class Management</a>
-            <a href="{{route('feedback')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-comment-account-outline"></i> Suggestions</a>
+            <a href="{{route('feedback')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-comment-account-outline"></i> Feedback</a>
           </div>
      
      

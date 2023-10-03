@@ -230,7 +230,8 @@ class AdminController extends Controller
     public function classManagement() {
         $grade = DB::table('grade_level')->get();
         $subjects = DB::table('subjects')->where('isActive', 1)->get();
-        return view('Administrator.cm', $this->constants, ['grade' => $grade, 'subjects' => $subjects]);
+        $rooms = DB::table('rooms')->where('isActive', 1)->get();
+        return view('Administrator.cm', $this->constants, ['grade' => $grade, 'subjects' => $subjects, 'rooms' => $rooms]);
     }
 
     public function getgradeData($id) {
@@ -274,6 +275,31 @@ class AdminController extends Controller
             return redirect()->route('class-management')->with('error', 'Wrong password!');
         }
         
+    }
+
+    public function getRoomsData($id) {
+        $data = DB::table('rooms')->where('ID', $id)->first();
+        return response()->json(['data' => $data ]);
+    }
+
+    public function editRoom(Request $request) {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $edit = DB::table('rooms')->where('ID', $request->roomID)->update(['name' => $request->roomname]);
+            return redirect()->route('class-management')->with('success', 'You have edited a room!');
+        } else {
+            return redirect()->route('class-management')->with('error', 'Wrong password! Cancelling edit...');
+        }
+        
+    }
+
+    public function removeRoom(Request $request) {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $delete = DB::table('rooms')->where('ID', $request->roomID)->update(['isActive' => 0]);
+            return redirect()->route('class-management')->with('success', 'You have removed a room');
+        } else {
+            return redirect()->route('class-management')->with('error', 'Wrong password! Cancelling removal...');
+           
+        }
     }
    
 

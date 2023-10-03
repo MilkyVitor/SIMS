@@ -49,6 +49,9 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::get('/getsubjectData/{id}', [AdminController::class, 'getsubjectData']);
     Route::post('/editSubject', [AdminController::class, 'editSubject']);
     Route::post('/deleteSubject', [AdminController::class, 'deleteSubject']);
+    Route::get('/getroomsData/{id}', [AdminController::class, 'getRoomsData']);
+    Route::post('/editRoom', [AdminController::class, 'editRoom']);
+    Route::post('/removeRoom', [AdminController::class, 'removeRoom']);
 
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);
@@ -107,6 +110,8 @@ Route::middleware(['auth', 'CashierOnly'])->group(function () {
 
 Route::middleware(['auth', 'StudentOnly'])->group(function () {
     Route::get('/Student', [StudentController::class, 'home'])->name('Student');
+    Route::get('/schedule', [StudentController::class, 'schedule']);
+    Route::get('/payment-records', [StudentController::class, 'paymentRecords']);
 });
 
 
