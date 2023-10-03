@@ -43,4 +43,25 @@ class StudentController extends Controller
         $payment_transactions = DB::table('payment_transactions')->where('payment_info_id', $payment_info->ID)->get();
         return view('Student.pr', $this->constants, ['payment_info' => $payment_info, 'payment_transactions' => $payment_transactions]);
     }
+
+    public function getTransactionDetails($id) {
+        $data = DB::table('payment_transactions')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function sendReceipt(Request $request) {
+        $imagename = time() . '.' . $request->attachment->extension();
+        $request->attachment->storeAs('public/images', $imagename);
+        $sendreceipt = DB::table('payment_transactions')->where(['isActive' => 1, 'ID' => $request->transactID])->update(['attachment' => $imagename, 'isUploaded' => 1]);
+        if($sendreceipt){
+            return redirect('/payment-records')->with('success', 'You had uploaded a payment receipt, waiting for evaluation.');
+        }
+    }
+
+    public function gradesView(){
+        $user_id = Auth::user()->unique_id;
+        $gradestatus = DB::table('control_panel')->where('function', 'Grades View')->first();
+        $grades = DB::table('grade_records')->where(['student_id' => $user_id, 'isActive' => 1])->get();
+        return view('Student.gv', $this->constants, ['gradestatus' => $gradestatus, 'grades' => $grades]);
+    }
 }

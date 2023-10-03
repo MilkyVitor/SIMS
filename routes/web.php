@@ -112,6 +112,9 @@ Route::middleware(['auth', 'StudentOnly'])->group(function () {
     Route::get('/Student', [StudentController::class, 'home'])->name('Student');
     Route::get('/schedule', [StudentController::class, 'schedule']);
     Route::get('/payment-records', [StudentController::class, 'paymentRecords']);
+    Route::get('/getTransactionDetails/{id}', [StudentController::class, 'getTransactionDetails']);
+    Route::post('/sendReceipt', [StudentController::class, 'sendReceipt']);
+    Route::get('/grades-view', [StudentController::class, 'gradesView']);
 });
 
 

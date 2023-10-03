@@ -2,6 +2,8 @@
 <body class="bgimage">
 @include('./user_navbar')
 @include('Student.menu')
+@include('Student.modals')
+
 
     <main class="container">
         <h1 class="text-center">Payment Records</h1>
@@ -40,15 +42,23 @@
                             <tbody>
                                 @foreach ($payment_transactions as $row)
                                     <tr>
-                                        <td>{{$row->date_due}}</td>
-                                        <td>{{$row->date_paid}}</td>
-                                        <td>
-                                            @if ($row->isPaid == '0')
-                                                <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-send"></i> Send Pay Receipt</button>
-                                            @else
-                                                <button class="btn btn-sm btn-flat btn-primary"><i class="mdi mdi-eye"></i> View</button>
-                                            @endif
-                                        </td>
+                                        <td>{{emergencyFormatDate($row->date_due)}}</td>
+                                        @if ($row->isPaid == '0' && $row->isUploaded == '0' )
+                                            <td>Not Yet Paid</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-flat btn-success details" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#sendPayment"><i class="mdi mdi-send"></i> Send Pay Receipt</button>
+                                            </td>
+                                        @elseif($row->isPaid == '0' && $row->isUploaded == '1')
+                                            <td>In Evaluation</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-flat btn-primary details" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#viewPendingPayment"><i class="mdi mdi-eye"></i> View Uploaded Receipt</button>    
+                                            </td>
+                                        @else
+                                            <td>{{emergencyFormatDate($row->date_paid)}}</td> 
+                                            <td>
+                                                <button class="btn btn-sm btn-flat btn-primary details" data-bs-id="{{$row->ID}}" data-bs-toggle="modal" data-bs-target="#viewPayment"><i class="mdi mdi-eye"></i> View</button>    
+                                            </td>   
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -61,4 +71,30 @@
     </main>
 
 </body>
+
+<script>
+    $(function() {
+        $('.details').click(function (e) {
+            e.preventDefault();
+            var td = $(this).data('bs-id');
+            getTransactionDetails(td);
+        });
+    });
+
+    function getTransactionDetails(id) {
+        $.ajax({
+            method: 'GET',
+            url: '/getTransactionDetails/' + id,
+            success: function(response) {
+                $('.transactID').val(response.data.ID);
+                $('.datedue').val(formatDate(response.data.date_due));
+                $('.datepaid').val(formatDate(response.data.date_paid));
+                $('.amount').val(response.data.amount);
+                 $('.vImage').attr('src',"{{asset('/storage/images/')}}"+ '/' + response.data.attachment);
+
+                
+            }
+        });
+    }
+</script>
 @include('./partials.footer')

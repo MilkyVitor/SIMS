@@ -50,7 +50,7 @@
         return formattedDate;
     }
 
-    function setImage(directory, imageresult){
+    function setImage(directory, imageresult){ //PWEDENG OPTIONAL NA TO SINCE PWEDE KA GUMAMIT NG ".attr()"
                 var imageData = directory + imageresult;
                 var imagePreviews = document.getElementsByClassName("imagepreview");
                 for (var i = 0; i < imagePreviews.length; i++) {
@@ -61,7 +61,29 @@
     
 </script>
 
+<script>
+    function addingimagepreview(element, img_id){
+        var imageInput = document.getElementById(element.id);
+         var inputimages = document.getElementById(img_id);
+        var file = imageInput.files[0];
+        var reader = new FileReader();
+        
+            reader.onloadend = function() {
+                inputimages.innerHTML = '';
+                inputimages.src = reader.result;
+                inputimages.style = 'block';
+        }
+        
+        if (file) {
 
+            reader.readAsDataURL(file);
+        } else {
+            inputimages.src = "";
+        }
+       
+}
+
+</script>
 
 
 </html>
