@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\Announcements;
 use App\Models\Home;
 use App\Models\User;
+use Carbon\Carbon;
 
 
 
@@ -300,6 +301,40 @@ class AdminController extends Controller
             return redirect()->route('class-management')->with('error', 'Wrong password! Cancelling removal...');
            
         }
+    }
+
+    public function academicRecords() {
+        return view('Administrator.ar', $this->constants);
+    }
+
+    public function searchRecords(Request $request) {
+        $from = Carbon::parse($request->from)->format('F d, Y');
+        $to = Carbon::parse($request->to)->format('F d, Y');
+        switch ($request->table) {
+            case 'student_info':
+                    $students = DB::table('student_info')->whereBetween('updated_at', [$request->from, $request->to])->get();
+                    return redirect()->route('academic-records')->with(['students' => $students, 'from' => $from, 'to' => $to]);
+            break;
+            case 'document_requests':
+                    $dr = DB::table('document_requests')->whereBetween('updated_at', [$request->from, $request->to])->get();
+                    return redirect()->route('academic-records')->with(['dr' => $dr, 'from' => $from, 'to' => $to]);
+            break;
+            case 'feedback':
+                    $fb = DB::table('feedback')->whereBetween('updated_at', [$request->from, $request->to])->get();
+                    return redirect()->route('academic-records')->with(['fb' => $fb, 'from' => $from, 'to' => $to]);
+            break;
+            case 'payment_info':
+                    $pi = DB::table('payment_info')->whereBetween('updated_at', [$request->from, $request->to])->get();
+                    return redirect()->route('academic-records')->with(['pi' => $pi, 'from' => $from, 'to' => $to]);
+            break;
+            case 'inq_announcement':
+                    $ann = DB::table('inq_announcement')->whereBetween('updated_at', [$request->from, $request->to])->get();
+                    return redirect()->route('academic-records')->with(['ann' => $ann, 'from' => $from, 'to' => $to]);
+            break;
+        }
+        
+
+
     }
    
 

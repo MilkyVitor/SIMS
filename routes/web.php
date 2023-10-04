@@ -52,6 +52,9 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::get('/getroomsData/{id}', [AdminController::class, 'getRoomsData']);
     Route::post('/editRoom', [AdminController::class, 'editRoom']);
     Route::post('/removeRoom', [AdminController::class, 'removeRoom']);
+    Route::get('/academic-records', [AdminController::class, 'academicRecords'])->name('academic-records');
+    Route::post('/searchRecords', [AdminController::class, 'searchRecords']);
+    
 
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);

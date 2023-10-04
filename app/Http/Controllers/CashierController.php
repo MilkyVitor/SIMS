@@ -65,11 +65,18 @@ class CashierController extends Controller
         return view('Cashier.pm', $this->constants);
     }
 
+    // public function getLists(Request $request) {
+    //     $paymentmethod = $request->paymentmethod;
+    //      $studentlists = PaymentInfo::join('student_info', 'student_info.user_id', '=' , 'payment_info.student_id')
+    //      ->where(['payment_info.isActive' => 1, 'payment_method' => $request->paymentmethod])->get();
+    //      return view('Cashier.pmsl', $this->constants, ['studentlists' => $studentlists, 'paymentmethod' => $paymentmethod]);
+    // }
+
     public function getLists(Request $request) {
         $paymentmethod = $request->paymentmethod;
-         $studentlists = PaymentInfo::join('student_info', 'student_info.user_id', '=' , 'payment_info.student_id')
-         ->where(['payment_info.isActive' => 1, 'payment_method' => $request->paymentmethod])->get();
-         return view('Cashier.pmsl', $this->constants, ['studentlists' => $studentlists, 'paymentmethod' => $paymentmethod]);
+        $studentlists = PaymentInfo::join('student_info', 'student_info.user_id', '=' , 'payment_info.student_id')
+                        ->where(['payment_info.isActive' => 1, 'payment_method' => $request->paymentmethod])->get();
+        return redirect('/payment-management')->with(['studentlists' => $studentlists, 'paymentmethod' => $paymentmethod]);
     }
 
     public function getInformation(Request $request) {

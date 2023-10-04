@@ -94,7 +94,8 @@
                     $('.evaluatedBy').val(response.data.evaluated_by);
                     $('.amount').val(response.data.amount)
                     // setImage('assets/img/', response.data.attachment);
-                    $('.imagepreview').attr('src', "{{asset('assets/img')}}" + '/' + response.data.attachment); //BAKA may prob, check nalang
+                    $('.imagepreview').attr('src',"{{asset('/storage/images/')}}"+ '/' + response.data.attachment); //BAKA may prob, check nalang
+                    
                 }
             });
     }
