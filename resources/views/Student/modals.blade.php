@@ -109,4 +109,46 @@
     </div>
 </div>
 
+<div class="modal fade" id="requestDocument">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Request Document</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Documents</p>
+                <form action="/sendRequest" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{auth()->user()->unique_id}}" name="studentID">
+                <div class="form-group col-md-12">
+                    <label>
+                    <input type="checkbox" name="documents[]" value="Form 137" > 
+                    Form 137
+                    </label>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>
+                    <input type="checkbox"  name="documents[]" value="Certificate" > Certificate
+                    </label>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>
+                    <input type="checkbox" name="documents[]" value="Grades" > True Copy of Grades
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-primary"><i class="mdi mdi-send"></i> Request</button>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

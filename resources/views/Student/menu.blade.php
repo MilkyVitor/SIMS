@@ -13,6 +13,8 @@
             <a href="/schedule" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-clock-outline"></i> Schedule</a>
             <a href="/payment-records" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-clipboard-text-multiple-outline"></i> Payment Records</a>
             <a href="/grades-view" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-table-eye"></i> Grades View</a>
+            <a href="/document-request" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-file"></i> Document Request</a>
+            <a href="/promote-gradelevel" class="list-group-item list-group-item-action" aria-current="false"><i class="mdi mdi-transfer-up"></i> Promote Grade</a>
             
           </div>
      

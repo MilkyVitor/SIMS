@@ -9,6 +9,9 @@
         <h1 class="text-center">Payment Records</h1>
         <hr class="white-line">
 
+        <div class="mb-2">
+            <button class="btn btn-sm btn-flat btn-primary" data-bs-toggle="modal" data-bs-target="#viewAdditionals"><i class="mdi mdi-eye"></i> View Additionals</button>
+        </div>
         <div class="row">
 
             <div class="col-md-6">
@@ -97,4 +100,52 @@
         });
     }
 </script>
+
+<div class="modal fade" id="viewAdditionals">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Additional Payments</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <table class="table table-striped table-responsive data-table">
+                    <thead>
+                        <tr>
+                            <th>Bill ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Issue By</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($additionals as $row)
+                            <tr>
+                                <td>{{$row->bill_id}}</td>
+                                <td>{{$row->title}}</td>
+                                <td>{{$row->description}}</td>
+                                <td>{{$row->amount}}</td>
+                                <td>{{$row->issued_by}}</td>
+                                @if ($row->isPaid == 1)
+                                <td>Paid</td>
+                                @else
+                                <td>Not Paid</td>  
+                                @endif
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>  
 @include('./partials.footer')
