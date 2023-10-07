@@ -23,6 +23,8 @@ Route::get('/', [InquiryController::class, 'showInquiry'])->name('login');
 Route::post('/processlogin', [InquiryController::class, 'checkUser']);
 Route::post('/general-announcements', [InquiryController::class, 'showGeneralAnnouncements']);
 Route::post('/general-prog-offered', [InquiryController::class, 'showProgramsOffered']); 
+Route::get('/pdf-page', [InquiryController::class, 'pdfPage']);
+Route::get('/generatePdf', [InquiryController::class, 'generatePdf']);
 
 
 Route::middleware(['auth', 'AdminRestrict'])->group(function () {
@@ -122,6 +124,7 @@ Route::middleware(['auth', 'StudentOnly'])->group(function () {
     Route::get('/promote-gradelevel', [StudentController::class, 'promoteGradelevel']);
     Route::post('/sendRequest', [StudentController::class, 'sendRequest']);
     Route::post('/sendRegistration', [StudentController::class, 'sendRegistration']);
+    Route::post('/acknowledgePDF', [StudentController::class, 'acknowledgePDF']);
 });
 
 

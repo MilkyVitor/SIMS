@@ -248,7 +248,9 @@ class RegistrarController extends Controller
 
     public function documentRequests(){
          $students = StudentInfo::join('document_requests', 'student_info.user_id', '=', 'document_requests.student_id')
-         ->where(['isActive' => 1, 'date_acknowledged' => NULL])
+         ->distinct()
+         ->select('first_name', 'last_name', 'document_requests.student_id')
+         ->where(['document_requests.isActive' => 1, 'date_acknowledged' => NULL])
          ->get();
          return view('Registrar.dr', $this->constants, ['students' => $students]);
        

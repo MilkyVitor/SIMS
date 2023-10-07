@@ -29,7 +29,7 @@
         @endif
 
 
-        @if ($dr == 'Yes' && $drstatus == 1)
+        @if ($dr == 'No' || $drstatus == 1)
             @if ($countOfDocs == 3)
                 <div class="alert alert-danger" role="alert">
                     You already requested all documents!
@@ -41,6 +41,11 @@
             <div class="col-md-12">
                 <div class="card m-1 overflow-y-auto">
                     <div class="card-body">
+                        <form action="/acknowledgePDF" method="POST">
+                            @csrf
+                        <input type="hidden" value="{{auth()->user()->unique_id}}" name="userID">
+                        <button class="btn btn-sm btn-flat btn-primary mb-3"><i class="mdi mdi-printer"></i> Print Acknowledgement</button>
+                        </form>
                         <table class="table table-responsive table-striped data-table">
                             <thead>
                                 <tr>
@@ -48,7 +53,6 @@
                                     <th>Requested Document</th>
                                     <th>Status</th>
                                     <th>Date Acknowledged</th>
-                                    <th>Tools</th>
                                 </tr>
                             </thead>
 
@@ -60,15 +64,11 @@
                                         @if ($row->date_acknowledged == NULL)
                                         <td>Not Yet Acknowledged</td>
                                         <td>Not Yet Acknowledged</td>
-                                        <td>
-                                            <button class="btn btn-flat btn-sm btn-success" disabled><i class="mdi mdi-print"></i> Print Acknowledgement</button>
-                                        </td>
+                                      
                                         @else
                                         <td>Acknowledged</td>
                                         <td>{{$row->date_acknowledged}}</td>
-                                        <td>
-                                            <button class="btn btn-flat btn-sm btn-success" ><i class="mdi mdi-print"></i> Print Acknowledgement</button>
-                                        </td>
+                                        
                                         @endif
                                         
                                     </tr>

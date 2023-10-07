@@ -10,7 +10,7 @@ use App\Models\PaymentInfo;
 use App\Models\DocumentRequests;
 use App\Models\StudentInfo;
 use Illuminate\Support\Collection;
-
+use PDF;
 
 class StudentController extends Controller
 {
@@ -84,9 +84,29 @@ class StudentController extends Controller
             return view('Student.dr', $this->constants, ['dr' => $dr, 'docs' => $docs, 'countOfDocs' => $countOfDocs, 'drstatus' => $drstatus->status]);
         } else {
             $dr = 'No';
+           
+            
             return view('Student.dr', $this->constants, ['dr' => $dr]);
 
         }
+    }
+
+    public function acknowledgePDF(Request $request) {
+        $docs = DocumentRequests::whereNotNull('date_acknowledged')
+        ->join('student_info', 'student_info.user_id', '=', 'document_requests.student_id')
+        ->where(['student_id' => $request->userID, 'document_requests.isActive' => 1])->get();
+        $info = $docs->first();
+        if($docs->count() > 0) {
+            $data = [
+                'title' => 'SIMS PDF',
+                'date' => date('F d, Y'),
+                'docs' => $docs,
+                'name' => $info->first_name." ".$info->last_name,
+                'code' => $info->user_id
+            ];
+        } 
+        $pdf = PDF::loadView('Student.dr-pdf', $data);
+        return $pdf->stream('acknowledgement.pdf');
     }
 
     public function sendRequest(Request $request) {

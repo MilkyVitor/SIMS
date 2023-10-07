@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Announcements;
 use App\Models\Home;
+use App\Models\User;
+use PDF;
 
 class InquiryController extends Controller
 {
@@ -65,6 +67,21 @@ class InquiryController extends Controller
         $folder = $request['accountType'];
         
         return view('programs', ['title' => $title, 'school' =>$school, 'user' => $user, 'folder' => $folder ]);
+    }
+
+    
+    public function pdfPage() {
+        $users = User::get(); /* Get Users table data */
+  
+        $data = [ /* Array to store title, date and users */
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ]; 
+            
+        $pdf = PDF::loadView('pdf', $data); /* integrate the view of 'pdf' to visualize the pdf document and supply with $data  */
+     
+        return $pdf->stream('itsolutionstuff.pdf'); /* return to download */
     }
 
 

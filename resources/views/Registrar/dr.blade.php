@@ -35,7 +35,6 @@
                     <table class="table table-striped data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Student Name</th>
                                 <th>Tools</th>
                             </tr>
@@ -44,7 +43,6 @@
                         <tbody>
                             @foreach ($students as $row)
                                 <tr>
-                                    <td>{{$row->ID}}</td>
                                     <td>{{$row->first_name." ".$row->last_name}}</td>
                                     <td>
                                         <form action="/getDocumentsList" method="POST">
