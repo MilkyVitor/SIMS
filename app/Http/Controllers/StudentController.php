@@ -11,6 +11,7 @@ use App\Models\DocumentRequests;
 use App\Models\StudentInfo;
 use Illuminate\Support\Collection;
 use PDF;
+use App\Models\Feedbacks;
 
 class StudentController extends Controller
 {
@@ -181,5 +182,30 @@ class StudentController extends Controller
 
     }
 
+    public function feedback() {
+        $name = Auth::user()->name;
+        $check = DB::table('control_panel')->where('function', 'Feedback')->first();
+        $feedback = Feedbacks::where('name', $name)->get();
+        if($check->status == 1) {
+            $allowed = ($feedback->count() < 2) ? 'Yes' : 'No';
+            return view('Student.f', $this->constants, ['f' => 'Yes','feedback' => $feedback, 'allowed' => $allowed]);
+        } else {
+            return view('Student.f', $this->constants, ['f' => 'No']);
+        }
+    }
+
+    public function sendFeedback(Request $request) {
+        $send = new Feedbacks;
+        $send->name = $request->name;
+        $send->feedback = $request->feedback;
+        $send->isAcknowledged = 0;
+        $send->isActive = 1;
+
+        if($send->save()){
+            return redirect('/feedback')->with('success', 'You have sent a feedback!');
+        } else {
+            echo "AERER";
+        }
+    }
 
 }

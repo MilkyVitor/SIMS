@@ -84,6 +84,9 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::get('/document-requests', [RegistrarController::class, 'documentRequests']);
     Route::post('/getDocumentsList', [RegistrarController::class, 'getDocumentLists']);
     Route::post('/acknowledgedocs', [RegistrarController::class, 'acknowledgeDocs']);
+    Route::get('/grade-manage', [RegistrarController::class, 'gradeManage']);
+    Route::post('/seeStudents', [RegistrarController::class, 'seeStudents']);
+    Route::post('/viewGrades', [RegistrarController::class, 'viewGrades']);
 
 });
 
@@ -125,6 +128,8 @@ Route::middleware(['auth', 'StudentOnly'])->group(function () {
     Route::post('/sendRequest', [StudentController::class, 'sendRequest']);
     Route::post('/sendRegistration', [StudentController::class, 'sendRegistration']);
     Route::post('/acknowledgePDF', [StudentController::class, 'acknowledgePDF']);
+    Route::get('/feedback', [StudentController::class, 'feedback']);
+    Route::post('/sendFeedback', [StudentController::class, 'sendFeedback']);
 });
 
 

@@ -150,5 +150,31 @@
     </div>
 </div>
 
+<div class="modal fade" id="sendFeedback">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Send Feedback</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/sendFeedback" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{auth()->user()->name}}" name="name">
+                <div class="form-group col-md-12">
+                    <label>Feedback</label>
+                    <textarea name="feedback" class="form-control" rows="5" placeholder="Enter feedback..." required></textarea>
+                </div>
+                <i>Avoid foul words!</i>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-success"><i class="mdi mdi-send"></i> Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
 

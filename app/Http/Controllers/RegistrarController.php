@@ -272,4 +272,30 @@ class RegistrarController extends Controller
         }
     }
 
+    public function gradeManage() {
+        $check = DB::table('control_panel')->where('function', 'Grading')->first();
+        if($check->status == 1){
+            $sections = DB::table('student')->join('sections', 'student.section_id', '=' ,'sections.ID')
+            ->where(['student.isActive' => 1])->get();
+
+            return view('Registrar.gm', $this->constants, ['gm' => 'Yes', 'sections' => $sections]);
+        } else {
+            return view('Registrar.gm', $this->constants, ['gm' => 'No']);
+
+        }
+    }
+
+    public function seeStudents(Request $request) {
+        $section = Section::where('ID', $request->section)->first();
+        $students = DB::table('student')->join('student_info', 'student.student_id', '=', 'student_info.user_id')
+        ->where('section_id', $request->section)->get();
+        return view('Registrar.gmv', $this->constants, ['students' => $students, 'section' => $section]);
+    }
+
+    public function viewGrades(Request $request) {
+        $gradelist = DB::table('grade_records')->join('student_info', 'grade_records.student_id', '=', 'student_info.user_id')
+        ->where('student_id', $request->studentID)->get();
+        $name = $gradelist->first()->first_name.' '.$gradelist->first()->last_name;
+        return view('Registrar.gmv-g', $this->constants, ['gradelist' => $gradelist, 'section' => $request->sectionID, 'name' => $name]);
+    }
 }
