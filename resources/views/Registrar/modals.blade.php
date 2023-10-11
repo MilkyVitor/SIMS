@@ -715,3 +715,48 @@
     </div>
 </div>
 
+<div class="modal fade" id="setGrade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Set Grade</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/setGrade" method="POST">
+                    @csrf
+                <div class="row">
+                   <input type="hidden" name="gradeID" class="gradeID">
+                <div class="form-group col-md-12 text-center">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject text-center"  readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>First</label>
+                    <input type="text" class="form-control first"  name="first">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Second</label>
+                    <input type="text" class="form-control second" name="second"  >
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Third</label>
+                    <input type="text" class="form-control third" name="third" >
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Final</label>
+                    <input type="text" class="form-control final" name="final" >
+                </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <input type="hidden" name="studentID" class="studentID">
+                <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-check"></i> Set</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

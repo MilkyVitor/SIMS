@@ -87,7 +87,8 @@ Route::middleware(['auth', 'RegistrarRestrict'])->group(function () {
     Route::get('/grade-manage', [RegistrarController::class, 'gradeManage']);
     Route::post('/seeStudents', [RegistrarController::class, 'seeStudents']);
     Route::post('/viewGrades', [RegistrarController::class, 'viewGrades']);
-
+    Route::post('/setGrade', [RegistrarController::class, 'setGrade']);
+    Route::get('/getGrade/{id}', [RegistrarController::class, 'getGrade']);
 });
 
 

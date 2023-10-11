@@ -294,8 +294,28 @@ class RegistrarController extends Controller
 
     public function viewGrades(Request $request) {
         $gradelist = DB::table('grade_records')->join('student_info', 'grade_records.student_id', '=', 'student_info.user_id')
+        ->select('*', 'grade_records.ID as grID')
         ->where('student_id', $request->studentID)->get();
         $name = $gradelist->first()->first_name.' '.$gradelist->first()->last_name;
         return view('Registrar.gmv-g', $this->constants, ['gradelist' => $gradelist, 'section' => $request->sectionID, 'name' => $name]);
+    }
+
+    public function getGrade($id){
+        $data = DB::table('grade_records')->where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function setGrade(Request $request) {
+        $set = DB::table('grade_records')->where('ID', $request->gradeID)
+        ->update(['first' => $request->first, 'second' => $request->second, 'third' => $request->third, 'final' => $request->final ]);
+
+
+        /* Returning redirect to page requires fetching data to supply the details */
+        $gradelist = DB::table('grade_records')->join('student_info', 'grade_records.student_id', '=', 'student_info.user_id')
+        ->select('*', 'grade_records.ID as grID')
+        ->where('student_id', $request->studentID)->get(); // get Gradelist
+        $name = $gradelist->first()->first_name.' '.$gradelist->first()->last_name; //get Name
+        $section = DB::table('student')->where('student_id', $request->studentID)->first(); //get Section
+        return view('Registrar.gmv-g', $this->constants, ['gradelist' => $gradelist, 'section' => $section->section_id, 'name' => $name])->with('success', 'You had added a grade');
     }
 }
