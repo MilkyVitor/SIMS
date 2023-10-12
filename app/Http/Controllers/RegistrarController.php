@@ -89,6 +89,8 @@ class RegistrarController extends Controller
         $register->isPaid = "No";
         $register->isEnrolled = "No";
         $register->isRegistered = "Yes";
+        $register->isActive = 1;
+
 
         if($register->save()){
             return redirect('/student-registration')->with('success', 'Successfully registered a student. Proceed to cashier!');

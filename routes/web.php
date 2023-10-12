@@ -42,7 +42,7 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::get('/accounts/{type}', [AdminController::class, 'showAccounts']);
     Route::get('/control-panel', [AdminController::class, 'controlPanel'])->name('control-panel');
     Route::post('/toggle', [AdminController::class, 'toggle']);
-    Route::get('/feedback', [AdminController::class, 'feedback'])->name('feedback');
+    Route::get('/adminfeedback', [AdminController::class, 'feedback'])->name('feedback');
     Route::get('/getfeedbackdata/{id}', [AdminController::class, 'getFeedbackData']);
     Route::post('/acknowledge', [AdminController::class, 'acknowledgeFeedback']);
     Route::get('/class-management', [AdminController::class, 'classManagement'])->name('class-management');
@@ -56,7 +56,13 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::post('/removeRoom', [AdminController::class, 'removeRoom']);
     Route::get('/academic-records', [AdminController::class, 'academicRecords'])->name('academic-records');
     Route::post('/searchRecords', [AdminController::class, 'searchRecords']);
-    
+    Route::get('/master-control', [AdminController::class, 'masterControl'])->name('master-control');
+    Route::get('/sr-control', [AdminController::class, 'srControl']);
+    Route::post('/admin-send-sr', [AdminController::class, 'sendRegistration']);
+    Route::get('/prData/{id}', [AdminController::class, 'prData']);
+    Route::post('/admin-mark-paid', [AdminController::class, 'markPaid']);
+    Route::post('/admin-accept-enrollee', [AdminController::class, 'acceptEnrollee']);
+    Route::get('/cs-control', [AdminController::class, 'csControl']);
 
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);

@@ -488,3 +488,381 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="viewStudentRegistration">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5">Student Information</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+
+                    <div class="card-title fs-5 text-center">Review Information</div>
+                    <hr>
+                    <form action="/admin-send-sr" method="POST">
+                        @csrf
+                    <div class="row">
+                        <legend>Personal Information</legend>
+                        <hr>
+                        <div class="form-group col-md-3">
+                            <label for="">First Name</label>
+                             <input type="text" name="firstname" id="FirstName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Middle Name</label>
+                            <input type="text" name="middlename" id="MiddleName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Last Name</label>
+                            <input type="text" name="lastname" id="LastName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Suffix</label>
+                            <input type="text" name="suffix" id="Suffix" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Gender</label>
+                            <input type="text" name="gender" id="Gender" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Date of Birth</label>
+                            <input type="date" name="datebirth" id="DateBirth" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Place of Birth</label>
+                            <input type="text" name="placebirth" id="PlaceBirth" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Contact Number</label>
+                            <input type="text" name="contactnumber" id="ContactNumber" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Email Address</label>
+                            <input type="text" name="emailaddress" id="EmailAddress" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Home Address</label>
+                            <input type="text" name="homeaddress" id="HomeAddress" class="form-control" readonly>
+                        </div>
+                        <legend>Contact Information</legend>
+                        <hr>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Name</label>
+                            <input type="text" name="guardianName" id="GuardianName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Relationship</label>
+                            <input type="text" name="guardianrelation" id="GuardianRelation" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Contact Number</label>
+                            <input type="text" name="guardiancontact" id="GuardianContact" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Guardian Address</label>
+                            <input type="text" name="guardianaddress" id="GuardianAddress" class="form-control" readonly>
+                        </div>
+                        <legend>Preferences</legend>
+                        <hr>
+                        <div class="form-group col-md-3">
+                            <label for="">Grade Level</label>
+                            <input type="text" name="gradelevel" id="GradeLevel" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Student Type</label>
+                            <input type="text" name="studentType" id="StudentType" class="form-control" readonly>
+                        </div>
+                      
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success btn-lg"><i class="mdi mdi-send"></i> Submit to Payment</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewPRDetails">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+
+                    <div class="row">
+                        <legend>Personal Information</legend>
+                        <hr>
+                        <div class="form-group col-md-3">
+                            <label for="">First Name</label>
+                             <input type="text" name="firstname" id="DFirstName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Middle Name</label>
+                            <input type="text" name="middlename" id="DMiddleName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Last Name</label>
+                            <input type="text" name="lastname" id="DLastName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Suffix</label>
+                            <input type="text" name="suffix" id="DSuffix" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Gender</label>
+                            <input type="text" name="gender" id="DGender" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Date of Birth</label>
+                            <input type="date" name="datebirth" id="DDateBirth" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Place of Birth</label>
+                            <input type="text" name="placebirth" id="DPlaceBirth" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Contact Number</label>
+                            <input type="text" name="contactnumber" id="DContactNumber" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Email Address</label>
+                            <input type="text" name="emailaddress" id="DEmailAddress" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Home Address</label>
+                            <input type="text" name="homeaddress" id="DHomeAddress" class="form-control" readonly>
+                        </div>
+                        <legend>Contact Information</legend>
+                        <hr>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Name</label>
+                            <input type="text" name="guardianName" id="DGuardianName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Relationship</label>
+                            <input type="text" name="guardianrelation" id="DGuardianRelation" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Guardian Contact Number</label>
+                            <input type="text" name="guardiancontact" id="DGuardianContact" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Guardian Address</label>
+                            <input type="text" name="guardianaddress" id="DGuardianAddress" class="form-control" readonly>
+                        </div>
+                        <legend>Preferences</legend>
+                        <hr>
+                        <div class="form-group col-md-3">
+                            <label for="">Grade Level</label>
+                            <input type="text" name="gradelevel" id="DGradeLevel" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Student Type</label>
+                            <input type="text" name="studentType" id="DStudentType" class="form-control" readonly>
+                        </div>
+                      
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-success pass-confirm" id="studInfoID" data-bs-toggle="modal" data-bs-target="#confirmRegistration"><i class="mdi mdi-check"></i> Confirm Payment</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmRegistration">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Confirming registration</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+
+                    <form action="/admin-mark-paid" method="POST">
+                        @csrf
+                        <input type="hidden" class="studInfoID" name="studInfoID">
+                        <input type="hidden" class="userID" name="userID">
+                    <div class="form-group col-md-12">
+                        <label for="">Payment Interval</label>
+                        <select name="paymentinterval" class="form-control" required>
+                            <option disabled selected>Select</option>
+                            <option value="Full_Cash">Full Cash</option>
+                            <option value="Semi_Annual">Semi-Annual</option>
+                            <option value="Quarterly">Quarterly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="">Paid for School Essentials?</label>
+                        <select name="isEssentialsPaid" class="form-control" required>
+                            <option disabled selected>Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="Not_Yet">Not Yet</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-flat btn-sm btn-success"><i class="mdi mdi-check"></i> Mark as Paid</button>
+            </div>
+
+        </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="evaluateEnrollee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Evaluate Student</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+                    <form action="/admin-accept-enrollee" method="POST">
+                    @csrf
+                    <div class="form-group col-md-12 p-2">
+                        <input type="hidden" class="studInfoID" name="studID">
+                        <input type="hidden" class="userID" name="userID">
+                        <input type="hidden" class="sendName" name="name">
+                        <input type="hidden" class="sendEmailAddress" name="emailaddress">
+                        
+                        <h1 class="card-title fs-2 text-center">Pending Documents</h1>
+                        <input type="checkbox"  name="documents[]" value="Birth_Certificate"> Birth Certificate <br>
+                        <input type="checkbox"  name="documents[]" value="Report_Card"> Previous Report Card <br>
+                        <input type="checkbox"  name="documents[]" value="Picture"> 1x1 Picture <br>
+                    </div>
+
+                    {{-- <div class="form-group col-md-12">
+                        <input type="checkbox" required><em>CONFIRM THE ENROLLEE</em>
+                    </div> --}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-flat btn-success">Enroll the Student</button>
+            </div>
+        </form>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="studentInfo">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Student Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <legend>Personal Information</legend>
+                    <hr>
+                    <div class="form-group col-md-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control firstname" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control middlename" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control lastname"  readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Suffix</label>
+                        <input type="text" class="form-control suffix"  readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Gender</label>
+                        <input type="text" class="form-control gender"  readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Date of Birth</label>
+                        <input type="text" class="form-control datebirth"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Place of Birth</label>
+                        <input type="text" class="form-control placebirth"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control contactnumber"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input type="text" class="form-control emailaddress" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Home Address</label>
+                        <input type="text" class="form-control homeaddress"  readonly>
+                    </div>
+                    <legend>Guardian Details</legend>
+                    <hr>
+                    <div class="form-group col-md-6">
+                        <label>Name</label>
+                        <input type="text" class="form-control guardianname"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Relationship</label>
+                        <input type="text" class="form-control guardianrelation"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control guardiancontact" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Address</label>
+                        <input type="text" class="form-control guardianaddress"  readonly>
+                    </div>
+                    <legend>Academic Information</legend>
+                    <hr>
+                    <div class="form-group col-md-6">
+                        <label>Grade Level</label>
+                        <input type="text" class="form-control gradelevel"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Student Type</label>
+                        <input type="text" class="form-control studenttype"  readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

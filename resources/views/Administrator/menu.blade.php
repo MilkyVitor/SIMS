@@ -14,7 +14,8 @@
             <a href="{{route('control-panel')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-toggle-switch"></i> Control Panel</a>
             <a href="{{route('academic-records')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-archive-arrow-up-outline"></i> Academic Records</a>
             <a href="{{route('class-management')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-cog-outline"></i> Class Management</a>
-            <a href="{{route('feedback')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-comment-account-outline"></i> Feedback</a>
+            <a href="/adminfeedback" class="list-group-item list-group-item-action"><i class="mdi mdi-comment-account-outline"></i> Feedback</a>
+            <a href="{{route('master-control')}}" class="list-group-item list-group-item-action"><i class="mdi mdi-wrench-cog-outline"></i> Master Control</a>
           </div>
      
      

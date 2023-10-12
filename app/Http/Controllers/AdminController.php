@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
 use App\Models\Announcements;
 use App\Models\Home;
 use App\Models\User;
+use App\Models\StudentInfo;
+use App\Models\Section;
+use App\Models\StudentTransact;
 use Carbon\Carbon;
 
 
@@ -37,7 +40,7 @@ class AdminController extends Controller
     }
 
     public function home(){
-       
+
 
         return view('Administrator.home', $this->constants);
     }
@@ -73,11 +76,11 @@ class AdminController extends Controller
             return redirect('/update-master-page')->with('success', 'Home tab information updated!');
         }
     }
-    
+
     public function addAnnouncement(Request $request) {
-        $validated = $request->validate(['headline' => 'required', 
-        'description' => 'required', 
-        'postedAt' => 'required', 
+        $validated = $request->validate(['headline' => 'required',
+        'description' => 'required',
+        'postedAt' => 'required',
         'author' => 'required',
         'image' => 'required|image|mimes:jpeg,png,jpg|max:100000',
         ]);
@@ -115,7 +118,7 @@ class AdminController extends Controller
     public function editAnnouncement(Request $request) {
         $validated = $request->validate([
             'announcementID' => 'required',
-            'headline' => 'required', 
+            'headline' => 'required',
             'description' => 'required',
              'author' => 'required',
               'postedAt' => 'required',
@@ -123,7 +126,7 @@ class AdminController extends Controller
         ]);
 
         $imagename = time() . '.' . $request->image->extension();
-       
+
 
         $updateannouncement = Announcements::where('ID', $validated['announcementID'])->update([
             'Headline' => $validated['headline'],
@@ -145,7 +148,7 @@ class AdminController extends Controller
 
 
         if($delete){
-            return redirect('/update-master-page')->with('success', 'Announcement removed from '. $request->postedAt); 
+            return redirect('/update-master-page')->with('success', 'Announcement removed from '. $request->postedAt);
         }
     }
 
@@ -167,8 +170,8 @@ class AdminController extends Controller
             if($updateabout) {
                 return redirect('/update-master-page')->with('success', 'About information updated!');
             }
-        
-        
+
+
     }
 
     public function addAccount(Request $request) {
@@ -182,7 +185,7 @@ class AdminController extends Controller
         if($addaccount->save()){
             return redirect('/Administrator');
         }
-     
+
     }
 
     public function showAccounts($type) {
@@ -190,7 +193,7 @@ class AdminController extends Controller
 
         return view('Administrator.acc', $this->constants, ['accounts' => $accounts]);
     }
-    
+
     public function controlPanel(){
         $control = DB::table('control_panel')->where('isActive', 1)->get();
         return view('Administrator.cp', $this->constants, ['control' => $control]);
@@ -266,7 +269,7 @@ class AdminController extends Controller
     }
 
     public function deleteSubject(Request $request) {
-      
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $remove = DB::table('subjects')->where('ID', $request->subID)->update(['isActive' => 0]);
             if($remove) {
@@ -275,7 +278,7 @@ class AdminController extends Controller
         } else {
             return redirect()->route('class-management')->with('error', 'Wrong password!');
         }
-        
+
     }
 
     public function getRoomsData($id) {
@@ -290,7 +293,7 @@ class AdminController extends Controller
         } else {
             return redirect()->route('class-management')->with('error', 'Wrong password! Cancelling edit...');
         }
-        
+
     }
 
     public function removeRoom(Request $request) {
@@ -299,7 +302,7 @@ class AdminController extends Controller
             return redirect()->route('class-management')->with('success', 'You have removed a room');
         } else {
             return redirect()->route('class-management')->with('error', 'Wrong password! Cancelling removal...');
-           
+
         }
     }
 
@@ -332,11 +335,123 @@ class AdminController extends Controller
                     return redirect()->route('academic-records')->with(['ann' => $ann, 'from' => $from, 'to' => $to]);
             break;
         }
-        
+
 
 
     }
-   
+
+    public function masterControl() {
+        return view('Administrator.mc', $this->constants);
+    }
+
+    public function srControl(){
+        $prdata = StudentInfo::where('isPaid', 'No')->get();
+        $enrollee = StudentInfo::where('isRegistered', 'Yes')->where('isPaid', 'Yes')->where('isEnrolled', 'No')->get();
+        $students = StudentInfo::where('isEnrolled', 'Yes')->get();
+
+
+        return view('Administrator.mc-sr', $this->constants, ['prdata' => $prdata, 'enrollee' => $enrollee, 'students' => $students]);
+    }
+
+    public function sendRegistration(Request $request){
+        $validated = $request->validate([
+            'firstname' => 'required',
+            'middlename' => 'required',
+            'lastname' => 'required',
+            'gender' => 'required',
+             'datebirth' => 'required',
+            'placebirth' => 'required',
+             'contactnumber' => 'required',
+            'emailaddress' => 'required',
+             'homeaddress' => 'required',
+            'guardianName' => 'required',
+            'guardianrelation' => 'required',
+             'guardiancontact' => 'required',
+             'guardianaddress' => 'required',
+             'gradelevel' => 'required',
+             'studentType' => 'required'
+        ]);
+
+        $register = new StudentInfo;
+        $register->user_id = strtoupper(Str::random(6));
+        $register->first_name = $validated['firstname'];
+        $register->middle_name = $validated['middlename'];
+        $register->last_name = $validated['lastname'];
+        $register->suffix = $request->suffix;
+        $register->gender = $validated['gender'];
+        $register->date_birth = $validated['datebirth'];
+        $register->place_birth = $validated['placebirth'];
+        $register->contact_number = $validated['contactnumber'];
+        $register->email_address = $validated['emailaddress'];
+        $register->student_address = $validated['homeaddress'];
+        $register->guardian_name = $validated['guardianName'];
+        $register->guardian_relation = $validated['guardianrelation'];
+        $register->guardian_contact = $validated['guardiancontact'];
+        $register->guardian_address = $validated['guardianaddress'];
+        $register->grade_level = $validated['gradelevel'];
+        $register->student_type = $validated['studentType'];
+        $register->isPaid = "No";
+        $register->isEnrolled = "No";
+        $register->isRegistered = "Yes";
+        $register->isActive = 1;
+
+        if($register->save()){
+            return redirect('/sr-control')->with('success', 'Successfully registered a student. Proceed to cashier!');
+        } else {
+            return "error";
+        }
+
+
+
+    }
+
+    public function prData($id) {
+        $data = StudentInfo::where('ID', $id)->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function markPaid(Request $request){
+        $mark = StudentInfo::where('ID', $request->studInfoID)->update(['isPaid' => 'Yes']);
+        $addtransact = new StudentTransact;
+        $addtransact->user_id = $request->userID;
+        $addtransact->payment_interval = $request->paymentinterval;
+        $addtransact->is_essentials_paid = $request->isEssentialsPaid;
+        $addtransact->isActive = 1;
+
+        if($mark && $addtransact->save()) {
+            return redirect('/sr-control')->with('success', 'Student has proceeded for Enrollment!');
+        } else {
+            echo "Error";
+        }
+
+    }
+
+    public function acceptEnrollee(Request $request) {
+    
+        $accept = StudentInfo::where('ID', $request->studID)->update(['isEnrolled' => 'Yes']);
+
+        $createuser = new User;
+        $createuser->name = $request->name;
+        $createuser->email = $request->emailaddress;
+        $createuser->password = Hash::make($request->name);
+        $createuser->account_type = "Student";
+        $createuser->unique_id = $request->userID;
+
+        if($accept) {
+            if($createuser->save()){
+                return redirect('/sr-control')->with('success', 'Student has been Enrolled!');
+            }
+        } 
+    }
+
+    public function csControl() {
+        $section = Section::where('isActive', 1)->get();
+        $schedules = DB::table('schedule')
+        ->join('sections', 'sections.ID', '=' , 'schedule.section_id')
+        ->where('schedule.isActive', 1)->get();
+
+        return view('Administrator.mc-cs', $this->constants, ['section' => $section, 'schedules' => $schedules]);
+    }
 
 
 
