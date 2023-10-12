@@ -13,7 +13,10 @@ use App\Models\Home;
 use App\Models\User;
 use App\Models\StudentInfo;
 use App\Models\Section;
+use App\Models\Schedules;
 use App\Models\StudentTransact;
+use App\Models\PaymentAdditionals;
+use App\Models\PaymentInfo;
 use Carbon\Carbon;
 
 
@@ -453,6 +456,131 @@ class AdminController extends Controller
         return view('Administrator.mc-cs', $this->constants, ['section' => $section, 'schedules' => $schedules]);
     }
 
+    public function getSectionStudents(Request $request) {
+        $data = DB::table('student')
+        ->join('student_info', 'student.student_id', '=', 'student_info.user_id')
+        ->where('section_id', $request->sectionID)->get();
+        $section = Section::where('ID', $request->sectionID)->first();
+        return view('Administrator.mc-csv', $this->constants, ['data' => $data, 'section' => $section]);
+    }
 
+    public function editSchedule(Request $request){
+        $update = Schedules::where('ID', $request->scheduleID)
+                   ->update(['subject' => $request->subject, 'time_from' => $request->timefrom, 'time_to' => $request->timeto, 'room' => $request->room, 'teacher' => $request->teacher]);
+       
+       if($update){
+           return redirect('/cs-control')->with('success', "You updated a schedule for ". $request->gradesection .", updating system...");
+       }
+   }
+
+    public function removeSchedule(Request $request){
+        $delete = Schedules::where('ID', $request->scheduleID)
+                ->update(['isActive' => 0]);
+    
+        if($delete){
+            return redirect('/cs-control')->with('success', "You have removed a schedule for ". $request->gradesection .", updating system...");
+        }
+    }
+
+    public function giControl() {
+        $sections = DB::table('student')->join('sections', 'student.section_id', '=' ,'sections.ID')
+            ->where(['student.isActive' => 1])->get();
+
+        return view('Administrator.mc-gi', $this->constants, ['sections' => $sections]);
+    }
+
+    public function seeStudents(Request $request) {
+        $section = Section::where('ID', $request->section)->first();
+        $students = DB::table('student')->join('student_info', 'student.student_id', '=', 'student_info.user_id')
+        ->where('section_id', $request->section)->get();
+        return view('Administrator.mc-giv', $this->constants, ['students' => $students, 'section' => $section]);
+    }
+
+    public function viewGrades(Request $request) {
+        $gradelist = DB::table('grade_records')->join('student_info', 'grade_records.student_id', '=', 'student_info.user_id')
+        ->select('*', 'grade_records.ID as grID')
+        ->where('student_id', $request->studentID)->get();
+        $name = $gradelist->first()->first_name.' '.$gradelist->first()->last_name;
+        return view('Administrator.mc-give', $this->constants, ['gradelist' => $gradelist, 'section' => $request->sectionID, 'name' => $name]);
+    }
+
+    public function setGrade(Request $request) {
+        $set = DB::table('grade_records')->where('ID', $request->gradeID)
+        ->update(['first' => $request->first, 'second' => $request->second, 'third' => $request->third, 'final' => $request->final ]);
+
+
+        /* Returning redirect to page requires fetching data to supply the details */
+        $gradelist = DB::table('grade_records')->join('student_info', 'grade_records.student_id', '=', 'student_info.user_id')
+        ->select('*', 'grade_records.ID as grID')
+        ->where('student_id', $request->studentID)->get(); // get Gradelist
+        $name = $gradelist->first()->first_name.' '.$gradelist->first()->last_name; //get Name
+        $section = DB::table('student')->where('student_id', $request->studentID)->first(); //get Section
+        return view('Administrator.mc-give', $this->constants, ['gradelist' => $gradelist, 'section' => $section->section_id, 'name' => $name])->with('success', 'You had added a grade');
+    }
+
+    public function paControl() {
+        $additionals = PaymentAdditionals::where('isActive', 1)
+        ->select('bill_id', 'title', 'amount')
+        ->distinct()    
+        ->get();
+        return view('Administrator.mc-pa', $this->constants, ['additionals' => $additionals]);
+    }
+
+    public function issueAdd(Request $request) {
+        $students = StudentInfo::where('grade_level', $request->grade)->select('user_id')->get();
+        $billID = strtoupper(Str::random(10));
+        foreach($students as $student){
+            $add = new PaymentAdditionals;
+            $add->bill_id = $billID;
+            $add->title = $request->title;
+            $add->description = $request->description;
+            $add->amount = $request->amount;
+            $add->issued_by = $request->issuer;
+            $add->student_id = $student->user_id;
+            $add->isPaid = 0;
+            $add->isActive = 1;
+            $add->save();
+        }
+        return redirect('/pa-control')->with('success', 'You have added details');
+    }
+
+    public function editDetails(Request $request) {
+        $edit = PaymentAdditionals::where('bill_id', $request->billID)
+        ->update(['title' => $request->title, 'description' => $request->description]);
+        if($edit) {
+            return redirect('/pa-control')->with('success', 'You have updated details');
+        }
+    }
+
+    public function viewListStudents(Request $request) {
+        $info = PaymentAdditionals::where('bill_id', $request->billID)
+        ->first();
+        $lists = PaymentAdditionals::join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        ->select('*', 'payment_additionals.ID as pID','payment_additionals.isPaid as StatusPaid')
+        ->where('bill_id', $request->billID)->get();
+        $additionalstitle = $info->title;
+        return view('Administrator.mc-pav', $this->constants, ['lists' => $lists, 'additionalstitle' => $additionalstitle]);
+    }
+
+    public function setPaidAdd(Request $request) {
+        $setPaid = PaymentAdditionals::where('ID', $request->ID)->update(['isPaid' => 1]);
+        $info = PaymentAdditionals::join('student_info', 'student_info.user_id', '=', 'payment_additionals.student_id')
+        ->where('payment_additionals.ID', $request->ID)->first();
+        if($setPaid){
+            return redirect('/pa-control')->with('success', 'You have set paid '.$info->first_name.' '.$info->last_name.' for '.$info->title);
+        }
+    }
+
+    public function anControl() {
+        $numbers = DB::table('account_numbers')->where('isActive', 1)->get();
+        return view('Administrator.mc-an', $this->constants, ['numbers' => $numbers]);
+    }
+
+    public function editNumber(Request $request) {
+        $edit = DB::table('account_numbers')->where('ID', $request->ID)->update(['number' => $request->number]);
+        if($edit){
+            return redirect('/an-control')->with('success', 'You have updated number!');
+        }
+    }
 
 }

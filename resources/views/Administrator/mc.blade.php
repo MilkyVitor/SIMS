@@ -20,10 +20,40 @@
             </div>
 
             <div class="col-md-6 " >
-                <a href="cs-control">
+                <a href="/cs-control">
                     <div class="card m-2 mx-5" style="height: 10em">
                         <div class="card-body">
                             <h3 class=" text-center card-title">Class Schedules</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 " >
+                <a href="/gi-control">
+                    <div class="card m-2 mx-5" style="height: 10em">
+                        <div class="card-body">
+                            <h3 class=" text-center card-title">Grades Input</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 " >
+                <a href="/pa-control">
+                    <div class="card m-2 mx-5" style="height: 10em">
+                        <div class="card-body">
+                            <h3 class=" text-center card-title">Payment Additionals</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 " >
+                <a href="/an-control">
+                    <div class="card m-2 mx-5" style="height: 10em">
+                        <div class="card-body">
+                            <h3 class=" text-center card-title">Additionals</h3>
                         </div>
                     </div>
                 </a>

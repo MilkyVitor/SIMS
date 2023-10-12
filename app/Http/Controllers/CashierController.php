@@ -160,7 +160,7 @@ class CashierController extends Controller
             $add->isActive = 1;
             $add->save();
         }
-        return redirect('/payment-additionals')->with('success', 'You have updated details');
+        return redirect('/payment-additionals')->with('success', 'You have added details');
 
        
     }

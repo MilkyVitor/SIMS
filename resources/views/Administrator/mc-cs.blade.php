@@ -66,7 +66,7 @@
                                             <td>{{$row->grade_level}}</td>
                                             <td>{{$row->section_name}}</td>
                                             <td>
-                                                <form action="/getSectionStudents" method="POST">
+                                                <form action="/adminGetSectionStudents" method="POST">
                                                     @csrf
                                                     <input type="hidden" value="{{$row->ID}}" name="sectionID">
                                                     <button class="btn btn-primary btn-sm btn-flat" ><i class="mdi mdi-eye"></i> View Students</button>
@@ -137,10 +137,35 @@
 </body>
 
 <script>
-    
-    
-         
+    $(function() {
+   
 
+    $('.schedule').click( function(e) {
+        e.preventDefault();
+        var sched = $(this).data('bs-id');
+        getScheduleData(sched);
+    });    
+
+   });
+   
+   function getScheduleData(id){
+    $.ajax({
+        method: "GET",
+        url: "/admingetScheduleData/" + id,
+        success: function(response){
+            console.log(response);
+            $('.scheduleID').val(response.data.ID);            
+            $('.grade-section').val(response.data.grade_level+ " "+ response.data.section_name);            
+            $('.subject').val(response.data.subject);            
+            $('.timefrom').val(response.data.time_from);            
+            $('.timeto').val(response.data.time_to);            
+            $('.room').val(response.data.room);            
+            $('.teacher').val(response.data.teacher);            
+        }
+    });
+   }
+
+ 
 </script>
 
 @include('./partials.footer')

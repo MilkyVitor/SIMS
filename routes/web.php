@@ -63,6 +63,25 @@ Route::middleware(['auth', 'AdminRestrict'])->group(function () {
     Route::post('/admin-mark-paid', [AdminController::class, 'markPaid']);
     Route::post('/admin-accept-enrollee', [AdminController::class, 'acceptEnrollee']);
     Route::get('/cs-control', [AdminController::class, 'csControl']);
+    Route::post('/adminGetSectionStudents', [AdminController::class, 'getSectionStudents']);
+    Route::get('/admingetScheduleData/{id}', [RegistrarController::class, 'getScheduleData']);
+    Route::post('/adminEditSchedule', [AdminController::class, 'editSchedule']);
+    Route::post('/adminRemoveSchedule', [AdminController::class, 'removeSchedule']);
+    Route::get('/gi-control', [AdminController::class, 'giControl']);
+    Route::post('/adminSeeStudents', [AdminController::class, 'seeStudents']);
+    Route::post('/adminViewGrades', [AdminController::class,'viewGrades']);
+    Route::get('/adminGetGrade/{id}', [RegistrarController::class, 'getGrade']);
+    Route::post('/adminSetGrade', [AdminController::class, 'setGrade']);
+    Route::get('/pa-control', [AdminController::class, 'paControl']);
+    Route::post('/adminIssueAdd', [AdminController::class, 'issueAdd']);
+    Route::get('/adminGetAdditionalsData/{id}', [CashierController::class, 'getAdditionals']);
+    Route::post('/adminEditDetails', [AdminController::class, 'editDetails']);
+    Route::post('/adminViewListStudents', [AdminController::class, 'viewListStudents']);
+    Route::get('/adminGetname/{id}', [CashierController::class, 'getName']);
+    Route::post('/adminSetPaidAdd', [AdminController::class, 'setPaidAdd']);
+    Route::get('/an-control', [AdminController::class, 'anControl']);
+    Route::get('/adminGetNumber/{id}', [CashierController::class, 'getNumberData']);
+    Route::post('/adminEditNumber', [AdminController::class, 'editNumber']);
 
 
     Route::get('/logout-admin', [AdminController::class, 'logOut']);

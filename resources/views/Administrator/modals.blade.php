@@ -866,3 +866,363 @@
     </div>
 </div>
 
+<div class="modal fade" id="editSchedule">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Schedule</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/adminEditSchedule" method="POST">
+                    @csrf
+                    <input type="hidden" name="scheduleID" class="scheduleID">
+                <div class="form-group col-md-12">
+                    <label>Grade & Section</label>
+                    <input type="text" class="form-control grade-section" name="gradesection"  readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject" name="subject" required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>From</label>
+                    <select name="timefrom" class="form-control timefrom">
+                        <option disabled selected>-Select-</option>
+                        <option value="10:00am">10:00am</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>To</label>
+                    <select name="timeto" class="form-control timeto">
+                        <option disabled selected>-Select-</option>
+                        <option value="11:00am">11:00am</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Room</label>
+                    <input type="text" class="form-control room" name="room" >
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Teacher</label>
+                    <select name="teacher" class="form-control teacher">
+                        <option disabled selected>-Select-</option>
+                        <option value="AFASDA">AFASDA</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-md btn-flat btn-success"><i class="mdi mdi-check"></i> Update</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeSchedule">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Remove Schedule</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to remove this schedule?</p>
+                <br>
+                <form action="/adminRemoveSchedule" method="POST">
+                    @csrf
+                    <input type="hidden" class="scheduleID" name="scheduleID">
+                <div class="form-group col-md-12">
+                    <label>Grade & Section</label>
+                    <input type="text" class="form-control grade-section"  readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject" name="subject" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>From</label>
+                    <input type="text" class="form-control timefrom" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>To</label>
+                    <input type="text" class="form-control timeto" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Room</label>
+                    <input type="text" class="form-control room" name="room" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Teacher</label>
+                    <input type="text" class="form-control teacher" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-md btn-flat btn-danger"><i class="mdi mdi-delete"></i> Delete</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="setGrade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Set Grade</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/adminSetGrade" method="POST">
+                    @csrf
+                <div class="row">
+                   <input type="hidden" name="gradeID" class="gradeID">
+                <div class="form-group col-md-12 text-center">
+                    <label>Subject</label>
+                    <input type="text" class="form-control subject text-center"  readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>First</label>
+                    <input type="text" class="form-control first"  name="first">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Second</label>
+                    <input type="text" class="form-control second" name="second"  >
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Third</label>
+                    <input type="text" class="form-control third" name="third" >
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Final</label>
+                    <input type="text" class="form-control final" name="final" >
+                </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <input type="hidden" name="studentID" class="studentID">
+                <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-check"></i> Set</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="issueAdditionals">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Issue Additionals</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/adminIssueAdd" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{auth()->user()->name}}" name="issuer">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter Title..." required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="10" placeholder="Enter Description..." required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control" name="amount" placeholder="Enter Amount..." required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Grade</label>
+                    <select name="grade" class="form-control" required>
+                        <option disabled selected>-Select-</option>
+                        <option value="Grade-1">Grade 1</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                    <button class="btn btn-lg btn-flat btn-success"><i class="mdi mdi-send"></i> Issue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="viewDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">View Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control title" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control description" rows="5" readonly></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Issued By</label>
+                    <input type="text" class="form-control issuedBy" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/adminViewListStudents" method="POST">
+                    @csrf
+                    <input type="hidden" class="billID" name="billID">
+                    <button class="btn btn-lg btn-flat btn-primary"> <i class="mdi mdi-list-status"></i> List of Students </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="editDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="/adminEditDetails" method="POST">
+                    @csrf
+                    <input type="hidden" class="billID" name="billID">
+                <div class="form-group col-md-12">
+                    <label>Title</label>
+                    <input type="text" class="form-control title" name="title">
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control description" rows="5" name="description"></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Amount</label>
+                    <input type="text" class="form-control amount" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Issued By</label>
+                    <input type="text" class="form-control issuedBy" readonly>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+              
+                    <button class="btn btn-lg btn-flat btn-primary"> <i class="mdi mdi-pencil"></i> Edit </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="setPaidAdditionals">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Set as Paid</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to set this student as paid for <span class="title"></span></p>
+                <h1 class="student text-center" style="color:black"></h1>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/adminSetPaidAdd" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                    <button class="btn btn-lg btn-flat btn-success"><i class="mdi mdi-pencil"></i> Set as Paid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="editNumber">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Number</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="/adminEditNumber" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                <div class="form-group col-md-12">
+                    <label>Account Name:</label>
+                    <input type="text" class="form-control name" readonly>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Account Number:</label>
+                    <input type="text" class="form-control number" name="number" placeholder="Enter Number..." required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-flat btn-success"><i class="mdi mdi-pencil"></i> Update</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="deleteNumber">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Delete Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-center">Are you sure to delete this info?</p>
+                <h1 class="dname text-center" style="color:black"></h1>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/deleteNumber" method="POST">
+                    @csrf
+                    <input type="hidden" class="ID" name="ID">
+                    <button class="btn btn-lg btn-flat btn-danger"><i class="mdi mdi-delete"></i> Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
